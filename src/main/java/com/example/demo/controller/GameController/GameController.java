@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000", "https://roborally-backend.herokuapp.com"})
+@CrossOrigin
 public class GameController {
     private final IGameService gameService;
     private final IDtoMapper dtoMapper;

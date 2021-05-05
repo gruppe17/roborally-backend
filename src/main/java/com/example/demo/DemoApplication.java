@@ -14,8 +14,7 @@ public class DemoApplication {
   public CorsFilter corsFilter() {
     final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     final CorsConfiguration config = new CorsConfiguration();
-    config.setAllowCredentials(true);
-    config.addAllowedOrigin("*"); // this allows all origin
+    config.addAllowedOriginPattern("*"); // this allows all origin
     config.addAllowedHeader("*"); // this allows all headers
     config.addAllowedMethod("OPTIONS");
     config.addAllowedMethod("HEAD");
