@@ -6,11 +6,14 @@ import com.example.demo.exceptions.ServiceException;
 import com.example.demo.model.Board;
 import com.example.demo.model.Player;
 import com.example.demo.model.Space;
+import com.example.demo.service.implementations.GameService;
 import com.example.demo.service.interfaces.IGameService;
 import com.example.demo.util.mapping.IDtoMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @RestController
 @CrossOrigin
@@ -32,6 +35,36 @@ public class GameController {
     public ResponseEntity<BoardDto> getBoard(@PathVariable("boardId") int boardId) throws ServiceException, MappingException, DaoException {
         Board board = gameService.getBoard(boardId);
         return new ResponseEntity<>(dtoMapper.convertToDto(board), HttpStatus.OK);
+    }
+
+    /**
+     * Endpoint for getting information about all boards as a list.
+     */
+    @GetMapping("/boards")
+    public ResponseEntity<ArrayList<BoardDto>> getBoards() throws ServiceException, MappingException, DaoException {
+
+        ArrayList<BoardDto> boards = new ArrayList<>();
+
+        for(int i = 1; i < 1000; i++)
+        {
+            Board board;
+
+            try {
+                board = gameService.getBoard(i);
+            } catch (ServiceException e) {
+                break;
+            } catch (DaoException e) {
+                break;
+            }
+
+            if(board == null){
+                break;
+            }
+            boards.add(dtoMapper.convertToDto(board));
+        }
+
+        System.out.println(boards);
+        return new ResponseEntity<>(boards, HttpStatus.OK);
     }
 
 
