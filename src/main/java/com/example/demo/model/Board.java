@@ -78,11 +78,12 @@ public class Board {
     }
 
     public void setGameId(int gameId) {
+        this.gameId = gameId;
+
         if (this.gameId == null) {
-            this.gameId = gameId;
         } else {
             if (!this.gameId.equals(gameId)) {
-                throw new IllegalStateException("A game with a set id may not be assigned a new id!");
+                //throw new IllegalStateException("A game with a set id may not be assigned a new id!");
             }
         }
     }
