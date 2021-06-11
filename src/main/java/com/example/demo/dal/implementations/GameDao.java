@@ -5,6 +5,7 @@ import com.example.demo.model.Game;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
+import java.util.Random;
 
 /**
  * Primitive implementation of a game dao, using a HashMap.
@@ -12,29 +13,35 @@ import java.util.HashMap;
 @Repository
 public class GameDao implements IGameDao {
 	//GameId, Game
-	static final HashMap<Integer, Game> games = new HashMap<>();
-	static private int gameIdCounter = 0;
+	static final HashMap<Long, Game> games = new HashMap<>();
+	Random random = new Random();
 
 	@Override
-	public Game getGame(int gameId) {
+	public Game getGame(long gameId) {
 		return games.get(gameId);
 	}
 
 	@Override
-	public int createGame(Game game) {
-		gameIdCounter++;
-		game.setGameId(gameIdCounter);
+	public long createGame(Game game) {
+		game.setGameId(getUniqueGameId());
 		games.put(game.getGameId(), game);
-		return gameIdCounter;
+		return game.getGameId();
+	}
+
+	private long getUniqueGameId(){
+		//Would never return if all ids are taken :(
+		long id;
+		while (games.containsKey(id = random.nextLong()));
+		return id;
 	}
 
 	@Override
-	public void updateGame(Game game, int gameId) {
+	public void updateGame(Game game, long gameId) {
 		games.replace(gameId, game);
 	}
 
 	@Override
-	public void deleteGame(int gameId) {
+	public void deleteGame(long gameId) {
 		games.remove(gameId);
 	}
 }

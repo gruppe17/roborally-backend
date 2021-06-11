@@ -5,12 +5,12 @@ import com.example.demo.model.Game;
 
 
 public interface IGameDao {
-	Game getGame(int gameId) throws DaoException;
+	Game getGame(long gameId) throws DaoException;
 
-	int createGame(Game game) throws DaoException;
+	long createGame(Game game) throws DaoException;
 
-	void updateGame(Game game, int gameId) throws DaoException;
+	void updateGame(Game game, long gameId) throws DaoException;
 
-	void deleteGame(int gameId) throws DaoException;
+	void deleteGame(long gameId) throws DaoException;
 }
 
