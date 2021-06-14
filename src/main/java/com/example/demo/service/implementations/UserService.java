@@ -35,7 +35,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public String getUserName(long id) throws ServiceException, DaoException {
-        return userDao.getUser(id).getUserName();
+    public User getUser(long id) throws ServiceException, DaoException {
+        return userDao.getUser(id);
     }
 }

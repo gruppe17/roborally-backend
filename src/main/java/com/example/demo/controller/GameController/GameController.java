@@ -3,10 +3,8 @@ package com.example.demo.controller.GameController;
 import com.example.demo.exceptions.DaoException;
 import com.example.demo.exceptions.MappingException;
 import com.example.demo.exceptions.ServiceException;
-import com.example.demo.model.Board;
-import com.example.demo.model.Game;
-import com.example.demo.model.Player;
-import com.example.demo.model.Space;
+import com.example.demo.model.*;
+import com.example.demo.service.implementations.UserService;
 import com.example.demo.service.interfaces.IBoardService;
 import com.example.demo.service.interfaces.IGameService;
 import com.example.demo.service.interfaces.IUserService;
@@ -157,7 +155,7 @@ public class GameController {
      * Endpoint for getting all games
      * @return all the games
      */
-    @GetMapping("/game/list")
+    @GetMapping("/game/all")
     public ResponseEntity<ArrayList<GameDto>> getGames() throws ServiceException, MappingException, DaoException {
         ArrayList<GameDto> gameDtos = new ArrayList<>();
         Collection<Game> games = gameService.getAllGames();
@@ -194,6 +192,14 @@ public class GameController {
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
+    /**
+     * Removes a user from a game
+     * @param gameId
+     * @param userId
+     * @return
+     * @throws ServiceException
+     * @throws DaoException
+     */
     @PutMapping("/game/leave/{gameId}/{userId}")
     public ResponseEntity<Void> leaveGame(@PathVariable("gameId") long gameId, @PathVariable("userId") long userId) throws ServiceException, DaoException{
         boolean result = gameService.leaveGame(gameId, userId);
@@ -201,9 +207,76 @@ public class GameController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("/game/leave/{gameId}/{userId}")
+    /**
+     * Changes the name of the given game
+     * @param gameId
+     * @param name
+     * @return
+     * @throws ServiceException
+     * @throws DaoException
+     */
+    @PutMapping("/game/get/{gameId}/edit/{name}")
     public ResponseEntity<Void> editGame(@PathVariable("gameId") long gameId, @PathVariable("name") String name) throws ServiceException, DaoException{
         boolean result = gameService.editGameName(gameId, name);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    /**
+     * Creates a new user
+     * @return
+     * @throws ServiceException
+     * @throws DaoException
+     */
+    @PostMapping("/user/new")
+    public ResponseEntity<Long> joinGame() throws ServiceException, DaoException {
+        long id = userService.createUser();
+        return new ResponseEntity<>(id, HttpStatus.CREATED);
+    }
+
+    /**
+     * Changes the name of a user
+     * @param userId
+     * @param name
+     * @return
+     * @throws ServiceException
+     * @throws DaoException
+     */
+    @PutMapping("/user/get/{userId}/edit/{name}")
+    public ResponseEntity<Void> editUserName(@PathVariable("userId") long userId, @PathVariable("name") String name) throws ServiceException, DaoException{
+        User result = userService.changeUserName(userId, name);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    /**
+     * Get a user with the given userId
+     * @param userId
+     * @return
+     * @throws ServiceException
+     * @throws MappingException
+     * @throws DaoException
+     */
+    @GetMapping("/user/get/{userId}")
+    public ResponseEntity<UserDto> getUser(@PathVariable("userId") long userId) throws ServiceException, MappingException, DaoException {
+        User user = userService.getUser(userId);
+        return new ResponseEntity<>(dtoMapper.convertToDto(user), HttpStatus.OK);
+    }
+
+    /**
+     * Gets all the users
+     * @return
+     * @throws ServiceException
+     * @throws MappingException
+     * @throws DaoException
+     */
+    @GetMapping("/user/all")
+    public ResponseEntity<ArrayList<UserDto>> getUsers() throws ServiceException, MappingException, DaoException {
+        ArrayList<UserDto> userDtos = new ArrayList<>();
+        Collection<User> users = userService.getUsers();
+
+        for (User user: users) {
+            userDtos.add(dtoMapper.convertToDto(user));
+        }
+        return new ResponseEntity<>(userDtos, HttpStatus.OK);
     }
 }

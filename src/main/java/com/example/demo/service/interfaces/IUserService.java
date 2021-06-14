@@ -14,7 +14,7 @@ public interface IUserService {
 
     Collection<User> getUsers() throws ServiceException, DaoException;
 
-    String getUserName(long id) throws ServiceException, DaoException;
+    User getUser(long id) throws ServiceException, DaoException;
 
     User changeUserName(long id, String userName) throws ServiceException, DaoException;
 
