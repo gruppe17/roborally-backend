@@ -62,7 +62,7 @@ public class GameController {
 	 * @param playerDto the player we want to add to the board
 	 * @return the id of the player we have added
 	 */
-	@PostMapping("/game/get/{gameId}/board//player")
+	@PostMapping("/game/get/{gameId}/board/player")
 	public ResponseEntity<Integer> addPlayer(@PathVariable("gameId") int gameId, @RequestBody PlayerDto playerDto) throws ServiceException, MappingException, DaoException {
 		Board board = boardService.getBoard(gameId);
 		Player player = dtoMapper.convertToEntity(playerDto, board);
