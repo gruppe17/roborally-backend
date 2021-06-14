@@ -1,10 +1,7 @@
 package com.example.demo.service.implementations;
 
 import com.example.demo.dal.implementations.GameDao;
-import com.example.demo.dal.interfaces.IBoardDao;
-import com.example.demo.dal.interfaces.IGameDao;
-import com.example.demo.dal.interfaces.IPlayerDao;
-import com.example.demo.dal.interfaces.ISpaceDao;
+import com.example.demo.dal.implementations.UserDao;
 import com.example.demo.exceptions.DaoException;
 import com.example.demo.exceptions.ServiceException;
 import com.example.demo.model.Game;
@@ -15,9 +12,11 @@ import java.util.Collection;
 public class GameService implements IGameService {
 
     private final GameDao gameDao;
+    private final UserDao userDao;
 
-    public GameService(GameDao gameDao) {
+    public GameService(GameDao gameDao, UserDao userDao) {
         this.gameDao = gameDao;
+        this.userDao = userDao;
     }
 
     @Override
