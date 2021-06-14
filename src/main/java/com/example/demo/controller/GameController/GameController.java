@@ -198,4 +198,9 @@ public class GameController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PutMapping("/game/leave/{gameId}/{userId}")
+    public ResponseEntity<Void> editGame(@PathVariable("gameId") long gameId, @PathVariable("name") String name) throws ServiceException, DaoException{
+        boolean result = gameService.editGameName(gameId, name);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

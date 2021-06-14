@@ -4,10 +4,12 @@ import com.example.demo.dal.interfaces.IUserDao;
 import com.example.demo.exceptions.DaoException;
 import com.example.demo.model.Player;
 import com.example.demo.model.User;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Random;
 
+@Repository
 public class UserDao implements IUserDao {
     static final HashMap<Long, User> users = new HashMap<>();
     Random random = new Random();

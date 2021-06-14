@@ -12,11 +12,9 @@ import java.util.Collection;
 public class GameService implements IGameService {
 
     private final GameDao gameDao;
-    private final UserDao userDao;
 
-    public GameService(GameDao gameDao, UserDao userDao) {
+    public GameService(GameDao gameDao) {
         this.gameDao = gameDao;
-        this.userDao = userDao;
     }
 
     @Override
