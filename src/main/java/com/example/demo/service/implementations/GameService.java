@@ -36,21 +36,21 @@ public class GameService implements IGameService {
 
     @Override
     public Collection<Game> getAllGames() throws ServiceException, DaoException {
-        return null;
+        return gameDao.getAllGames();
     }
 
     @Override
     public boolean joinGame(long gameID, long userID) throws ServiceException, DaoException {
-        return false;
+        return gameDao.getGame(gameID).addUser(userID);
     }
 
     @Override
     public boolean leaveGame(long gameId, long userID)  throws ServiceException, DaoException {
-        return false;
+        return gameDao.getGame(gameId).removeUser(userID);
     }
 
     @Override
     public boolean editGameName(long gameID, String name) throws ServiceException, DaoException {
-        return false;
+        return gameDao.getGame(gameID).setGameName(name);
     }
 }

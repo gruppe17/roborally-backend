@@ -5,6 +5,8 @@ import com.example.demo.model.Game;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -19,6 +21,11 @@ public class GameDao implements IGameDao {
 	@Override
 	public Game getGame(long gameId) {
 		return games.get(gameId);
+	}
+
+	@Override
+	public List<Game> getAllGames(){
+		return new LinkedList<Game>(games.values());
 	}
 
 	@Override
