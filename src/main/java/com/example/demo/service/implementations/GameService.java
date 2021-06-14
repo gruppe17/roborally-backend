@@ -31,7 +31,7 @@ public class GameService implements IGameService {
 
     @Override
     public Game getGame(long gameID) throws ServiceException, DaoException {
-        return null;
+        return gameDao.getGame(gameID);
     }
 
     @Override
