@@ -56,6 +56,6 @@ public class GameService implements IGameService {
         Game game = gameDao.getGame(gameID);
         game.setGameName(name);
         gameDao.updateGame(game, gameID);
-        return game.getGameName() == name;
+        return game.getGameName().equals(name);
     }
 }
