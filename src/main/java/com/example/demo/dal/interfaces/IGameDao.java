@@ -11,6 +11,6 @@ public interface IGameDao {
 
 	void updateGame(Game game, long gameId) throws DaoException;
 
-	void deleteGame(long gameId) throws DaoException;
+	boolean deleteGame(long gameId) throws DaoException;
 }
 

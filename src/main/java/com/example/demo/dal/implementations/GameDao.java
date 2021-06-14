@@ -41,7 +41,7 @@ public class GameDao implements IGameDao {
 	}
 
 	@Override
-	public void deleteGame(long gameId) {
-		games.remove(gameId);
+	public boolean deleteGame(long gameId) {
+		return games.remove(gameId) != null;
 	}
 }
