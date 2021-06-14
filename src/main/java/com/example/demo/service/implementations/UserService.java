@@ -31,7 +31,7 @@ public class UserService implements IUserService {
     @Override
     public User changeUserName(long id, String userName) throws ServiceException, DaoException {
         userDao.getUser(id).setUserName(userName);
-        return null;
+        return userDao.getUser(id);
     }
 
     @Override
