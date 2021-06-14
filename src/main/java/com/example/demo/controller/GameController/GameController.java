@@ -190,6 +190,7 @@ public class GameController {
 		boolean result = gameService.joinGame(gameId, userId);
 		Board board = boardService.getBoard((int)gameId);
 		Player player = new Player(board, "red", "John Doe");
+		player.setPlayerId((int)userId);
 		boardService.addPlayer((int)gameId, player);
 
 		return new ResponseEntity<>(result, HttpStatus.CREATED);
@@ -206,6 +207,8 @@ public class GameController {
 	@PutMapping("/game/leave/{gameId}/{userId}")
 	public ResponseEntity<Void> leaveGame(@PathVariable("gameId") long gameId, @PathVariable("userId") long userId) throws ServiceException, DaoException{
 		boolean result = gameService.leaveGame(gameId, userId);
+		Board board = boardService.getBoard((int)gameId);
+		board.removePlayer(board.getPlayer((int)userId));
 
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

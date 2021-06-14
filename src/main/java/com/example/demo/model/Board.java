@@ -107,6 +107,12 @@ public class Board {
 		}
 	}
 
+	public void removePlayer(@NotNull Player player) {
+		    if(!players.contains(player))
+		    	return;
+			players.remove(player);
+	}
+
 	public Player getPlayer(int i) {
 		if (i >= 0 && i < players.size()) {
 			return players.get(i);
