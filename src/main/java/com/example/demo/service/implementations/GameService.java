@@ -1,13 +1,25 @@
 package com.example.demo.service.implementations;
 
+import com.example.demo.dal.implementations.GameDao;
+import com.example.demo.dal.interfaces.IBoardDao;
+import com.example.demo.dal.interfaces.IGameDao;
+import com.example.demo.dal.interfaces.IPlayerDao;
+import com.example.demo.dal.interfaces.ISpaceDao;
 import com.example.demo.exceptions.DaoException;
 import com.example.demo.exceptions.ServiceException;
 import com.example.demo.model.Game;
-import com.example.demo.service.interfaces.IActualGameService;
+import com.example.demo.service.interfaces.IGameService;
 
 import java.util.Collection;
 
-public class ActualGameService implements IActualGameService {
+public class GameService implements IGameService {
+
+    private final GameDao gameDao;
+
+    public GameService(GameDao gameDao) {
+        this.gameDao = gameDao;
+    }
+
     @Override
     public Game createGame() throws ServiceException, DaoException {
         return null;

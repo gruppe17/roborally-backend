@@ -6,7 +6,7 @@ import com.example.demo.model.Game;
 
 import java.util.Collection;
 
-public interface IActualGameService {
+public interface IGameService {
 	Game createGame() throws ServiceException, DaoException;
 
 	boolean removeGame(long gameId)  throws ServiceException, DaoException;
