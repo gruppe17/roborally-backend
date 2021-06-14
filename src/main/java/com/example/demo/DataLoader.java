@@ -15,15 +15,15 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class DataLoader implements ApplicationRunner {
-    private final IBoardService gameService;
+	private final IBoardService gameService;
 
-    public DataLoader(IBoardService gameService) {
-        this.gameService = gameService;
-    }
+	public DataLoader(IBoardService gameService) {
+		this.gameService = gameService;
+	}
 
-    @Override
-    public void run(ApplicationArguments args) throws ServiceException, DaoException {
+	@Override
+	public void run(ApplicationArguments args) throws ServiceException, DaoException {
 
 
-    }
+	}
 }

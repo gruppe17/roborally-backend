@@ -10,13 +10,13 @@ import java.util.HashMap;
 @Service
 public interface IUserService {
 
-    long createUser() throws ServiceException, DaoException;
+	long createUser() throws ServiceException, DaoException;
 
-    HashMap<Long, User> getUsers() throws ServiceException, DaoException;
+	HashMap<Long, User> getUsers() throws ServiceException, DaoException;
 
-    User getUser(long id) throws ServiceException, DaoException;
+	User getUser(long id) throws ServiceException, DaoException;
 
-    User changeUserName(long id, String userName) throws ServiceException, DaoException;
+	User changeUserName(long id, String userName) throws ServiceException, DaoException;
 
 
 }
