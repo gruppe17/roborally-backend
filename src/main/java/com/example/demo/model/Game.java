@@ -19,8 +19,9 @@ public class Game {
 		return gameName;
 	}
 
-	public void setGameName(String gameName) {
+	public boolean setGameName(String gameName) {
 		this.gameName = gameName;
+		return true;
 	}
 
 	public Game(long gameId, String gameName) {
