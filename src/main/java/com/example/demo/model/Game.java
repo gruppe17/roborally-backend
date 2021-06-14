@@ -11,12 +11,12 @@ public class Game {
 		return started;
 	}
 
-	public List<User> getUsers() {
+	public List<Long> getUsers() {
 		return users;
 	}
 
 	private boolean started;
-	private List<User> users;
+	private List<Long> users;
 
 	public String getGameName() {
 		return gameName;
@@ -31,6 +31,14 @@ public class Game {
 		this.gameId = gameId;
 		this.gameName = gameName;
 		users = new LinkedList<>();
+	}
+
+	public boolean addUser(long userId){
+		return users.add(userId);
+	}
+
+	public boolean removeUser(long userId){
+		return users.remove(userId);
 	}
 
 
