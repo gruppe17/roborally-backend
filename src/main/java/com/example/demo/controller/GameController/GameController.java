@@ -6,8 +6,7 @@ import com.example.demo.exceptions.ServiceException;
 import com.example.demo.model.Board;
 import com.example.demo.model.Player;
 import com.example.demo.model.Space;
-import com.example.demo.service.implementations.GameService;
-import com.example.demo.service.interfaces.IGameService;
+import com.example.demo.service.interfaces.IBoardService;
 import com.example.demo.util.mapping.IDtoMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +17,10 @@ import java.util.ArrayList;
 @RestController
 @CrossOrigin
 public class GameController {
-    private final IGameService gameService;
+    private final IBoardService gameService;
     private final IDtoMapper dtoMapper;
 
-    public GameController(IGameService gameService, IDtoMapper dtoMapper) {
+    public GameController(IBoardService gameService, IDtoMapper dtoMapper) {
         this.gameService = gameService;
         this.dtoMapper = dtoMapper;
     }

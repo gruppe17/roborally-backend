@@ -6,7 +6,7 @@ import com.example.demo.model.Board;
 import com.example.demo.model.Player;
 
 
-public interface IGameService {
+public interface IBoardService {
     Board getBoard(int boardId) throws ServiceException, DaoException;
 
     int saveBoard(Board board) throws ServiceException, DaoException;

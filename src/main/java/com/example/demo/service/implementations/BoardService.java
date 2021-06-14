@@ -8,17 +8,17 @@ import com.example.demo.exceptions.ServiceException;
 import com.example.demo.model.Board;
 import com.example.demo.model.Player;
 import com.example.demo.model.Space;
-import com.example.demo.service.interfaces.IGameService;
+import com.example.demo.service.interfaces.IBoardService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
-public class GameService implements IGameService {
+public class BoardService implements IBoardService {
     private final IBoardDao boardDao;
     private final ISpaceDao spaceDao;
     private final IPlayerDao playerDao;
 
-    public GameService(IBoardDao boardDao, ISpaceDao spaceDao, IPlayerDao playerDao) {
+    public BoardService(IBoardDao boardDao, ISpaceDao spaceDao, IPlayerDao playerDao) {
         this.boardDao = boardDao;
         this.spaceDao = spaceDao;
         this.playerDao = playerDao;

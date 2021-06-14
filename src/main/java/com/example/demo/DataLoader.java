@@ -5,7 +5,7 @@ import com.example.demo.exceptions.DaoException;
 import com.example.demo.exceptions.ServiceException;
 import com.example.demo.model.Board;
 import com.example.demo.model.Player;
-import com.example.demo.service.interfaces.IGameService;
+import com.example.demo.service.interfaces.IBoardService;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -15,9 +15,9 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class DataLoader implements ApplicationRunner {
-    private final IGameService gameService;
+    private final IBoardService gameService;
 
-    public DataLoader(IGameService gameService) {
+    public DataLoader(IBoardService gameService) {
         this.gameService = gameService;
     }
 
