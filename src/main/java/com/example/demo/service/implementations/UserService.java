@@ -7,7 +7,7 @@ import com.example.demo.model.User;
 import com.example.demo.service.interfaces.IUserService;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
+import java.util.HashMap;
 
 @Service
 public class UserService implements IUserService {
@@ -24,8 +24,8 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Collection<User> getUsers() throws ServiceException, DaoException {
-        userDao.getUsers();
+    public HashMap<Long, User> getUsers() throws ServiceException, DaoException {
+        return userDao.getUsers();
     }
 
     @Override
