@@ -4,6 +4,7 @@ import com.example.demo.exceptions.DaoException;
 import com.example.demo.exceptions.MappingException;
 import com.example.demo.exceptions.ServiceException;
 import com.example.demo.model.Board;
+import com.example.demo.model.Game;
 import com.example.demo.model.Player;
 import com.example.demo.model.Space;
 import com.example.demo.service.interfaces.IBoardService;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 @RestController
 @CrossOrigin
@@ -146,6 +148,35 @@ public class GameController {
     public ResponseEntity<Void> switchPlayer(@PathVariable("boardId") int boardId) throws ServiceException, DaoException {
         boardService.switchCurrentPlayer(boardId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+
+
+    /**
+     * Endpoint for getting game information
+     * @param gameId the id of the game we want to get
+     * @return the game with the associated gameId we provided
+     */
+    @GetMapping("/game/get/{gameId}")
+    public ResponseEntity<GameDto> getGame(@PathVariable("gameId") int gameId) throws ServiceException, MappingException, DaoException {
+        Game game = gameService.getGame(gameId);
+        return new ResponseEntity<>(dtoMapper.convertToDto(game), HttpStatus.OK);
+    }
+
+    /**
+     * Endpoint for getting all games
+     * @return all the games
+     */
+    @GetMapping("/game/list")
+    public ResponseEntity<ArrayList<GameDto>> getGames() throws ServiceException, MappingException, DaoException {
+        ArrayList<GameDto> gameDtos = new ArrayList<>();
+        Collection<Game> games = gameService.getAllGames();
+
+        for (Game game: games) {
+            gameDtos.add(dtoMapper.convertToDto(game));
+        }
+        return new ResponseEntity<>(gameDtos, HttpStatus.OK);
     }
 
 
