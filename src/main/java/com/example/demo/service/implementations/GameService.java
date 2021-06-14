@@ -26,7 +26,7 @@ public class GameService implements IGameService {
 
     @Override
     public boolean removeGame(long gameId) throws ServiceException, DaoException {
-        return false;
+    	return gameDao.deleteGame(gameId);
     }
 
     @Override
