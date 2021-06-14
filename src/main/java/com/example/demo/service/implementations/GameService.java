@@ -41,12 +41,12 @@ public class GameService implements IGameService {
 
     @Override
     public boolean joinGame(long gameID, long userID) throws ServiceException, DaoException {
-        return false;
+        return gameDao.getGame(gameID).addUser(userID);
     }
 
     @Override
     public boolean leaveGame(long gameId, long userID)  throws ServiceException, DaoException {
-        return false;
+        return gameDao.getGame(gameId).removeUser(userID);
     }
 
     @Override
