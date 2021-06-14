@@ -27,35 +27,35 @@ package com.example.demo.model;
  * @author Ekkart Kindler, ekki@dtu.dk
  */
 public class Space {
-    public final Board board;
-    public final int x;
-    public final int y;
-    private Player player;
+	public final Board board;
+	public final int x;
+	public final int y;
+	private Player player;
 
-    public Space(Board board, int x, int y) {
-        this.board = board;
-        this.x = x;
-        this.y = y;
-        player = null;
-    }
+	public Space(Board board, int x, int y) {
+		this.board = board;
+		this.x = x;
+		this.y = y;
+		player = null;
+	}
 
-    public Player getPlayer() {
-        return player;
-    }
+	public Player getPlayer() {
+		return player;
+	}
 
-    public void setPlayer(Player player) {
-        Player oldPlayer = this.player;
-        if (player != oldPlayer &&
-                (player == null || board == player.board)) {
-            this.player = player;
-            if (oldPlayer != null) {
-                // this should actually not happen
-                oldPlayer.setSpace(null);
-            }
-            if (player != null) {
-                player.setSpace(this);
-            }
-        }
-    }
+	public void setPlayer(Player player) {
+		Player oldPlayer = this.player;
+		if (player != oldPlayer &&
+				(player == null || board == player.board)) {
+			this.player = player;
+			if (oldPlayer != null) {
+				// this should actually not happen
+				oldPlayer.setSpace(null);
+			}
+			if (player != null) {
+				player.setSpace(this);
+			}
+		}
+	}
 
 }

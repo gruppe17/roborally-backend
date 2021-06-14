@@ -8,8 +8,8 @@ import java.util.Collection;
 import java.util.HashMap;
 
 public interface IUserDao {
-    long addUser(long gameId, User user) throws DaoException;
-    long newUser() throws DaoException;
-    User getUser(long userId) throws DaoException;
-    HashMap<Long, User> getUsers();
+	long addUser(long gameId, User user) throws DaoException;
+	long newUser() throws DaoException;
+	User getUser(long userId) throws DaoException;
+	HashMap<Long, User> getUsers();
 }

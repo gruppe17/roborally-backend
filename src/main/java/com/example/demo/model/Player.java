@@ -32,96 +32,96 @@ import static com.example.demo.model.Heading.SOUTH;
  */
 public class Player {
 
-    final public static int NO_REGISTERS = 5;
-    final public static int NO_CARDS = 8;
-    final public Board board;
-    private int playerId;
-    private String name;
-    private String color;
-    private Space space;
-    private Heading heading = SOUTH;
+	final public static int NO_REGISTERS = 5;
+	final public static int NO_CARDS = 8;
+	final public Board board;
+	private int playerId;
+	private String name;
+	private String color;
+	private Space space;
+	private Heading heading = SOUTH;
 
-    private CommandCardField[] program;
-    private CommandCardField[] cards;
+	private CommandCardField[] program;
+	private CommandCardField[] cards;
 
-    public Player(@NotNull Board board, String color, @NotNull String name) {
-        this.board = board;
-        this.name = name;
-        this.color = color;
+	public Player(@NotNull Board board, String color, @NotNull String name) {
+		this.board = board;
+		this.name = name;
+		this.color = color;
 
-        this.space = null;
+		this.space = null;
 
-        program = new CommandCardField[NO_REGISTERS];
-        for (int i = 0; i < program.length; i++) {
-            program[i] = new CommandCardField(this);
-        }
+		program = new CommandCardField[NO_REGISTERS];
+		for (int i = 0; i < program.length; i++) {
+			program[i] = new CommandCardField(this);
+		}
 
-        cards = new CommandCardField[NO_CARDS];
-        for (int i = 0; i < cards.length; i++) {
-            cards[i] = new CommandCardField(this);
-        }
-    }
+		cards = new CommandCardField[NO_CARDS];
+		for (int i = 0; i < cards.length; i++) {
+			cards[i] = new CommandCardField(this);
+		}
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        if (name != null && !name.equals(this.name)) {
-            this.name = name;
-        }
-    }
+	public void setName(String name) {
+		if (name != null && !name.equals(this.name)) {
+			this.name = name;
+		}
+	}
 
-    public String getColor() {
-        return color;
-    }
+	public String getColor() {
+		return color;
+	}
 
-    public void setColor(String color) {
-        this.color = color;
+	public void setColor(String color) {
+		this.color = color;
 
-    }
+	}
 
-    public Space getSpace() {
-        return space;
-    }
+	public Space getSpace() {
+		return space;
+	}
 
-    public void setSpace(Space space) {
-        Space oldSpace = this.space;
-        if (space != oldSpace &&
-                (space == null || space.board == this.board)) {
-            this.space = space;
-            if (oldSpace != null) {
-                oldSpace.setPlayer(null);
-            }
-            if (space != null) {
-                space.setPlayer(this);
-            }
-        }
-    }
+	public void setSpace(Space space) {
+		Space oldSpace = this.space;
+		if (space != oldSpace &&
+				(space == null || space.board == this.board)) {
+			this.space = space;
+			if (oldSpace != null) {
+				oldSpace.setPlayer(null);
+			}
+			if (space != null) {
+				space.setPlayer(this);
+			}
+		}
+	}
 
-    public Heading getHeading() {
-        return heading;
-    }
+	public Heading getHeading() {
+		return heading;
+	}
 
-    public void setHeading(@NotNull Heading heading) {
-        if (heading != this.heading) {
-            this.heading = heading;
-        }
-    }
+	public void setHeading(@NotNull Heading heading) {
+		if (heading != this.heading) {
+			this.heading = heading;
+		}
+	}
 
-    public CommandCardField getProgramField(int i) {
-        return program[i];
-    }
+	public CommandCardField getProgramField(int i) {
+		return program[i];
+	}
 
-    public CommandCardField getCardField(int i) {
-        return cards[i];
-    }
+	public CommandCardField getCardField(int i) {
+		return cards[i];
+	}
 
-    public int getPlayerId() {
-        return playerId;
-    }
+	public int getPlayerId() {
+		return playerId;
+	}
 
-    public void setPlayerId(int playerId) {
-        this.playerId = playerId;
-    }
+	public void setPlayerId(int playerId) {
+		this.playerId = playerId;
+	}
 }
