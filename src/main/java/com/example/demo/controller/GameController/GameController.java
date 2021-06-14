@@ -78,8 +78,8 @@ public class GameController {
 	 */
 	@PostMapping("/game/new")
 	public ResponseEntity<Long> createGame() throws ServiceException, DaoException {
-		Game game = gameService.createGame();
-		return new ResponseEntity<>(game.getGameId(), HttpStatus.CREATED);
+		long gameId = gameService.createGame();
+		return new ResponseEntity<>(gameId, HttpStatus.CREATED);
 	}
 
 	/**
