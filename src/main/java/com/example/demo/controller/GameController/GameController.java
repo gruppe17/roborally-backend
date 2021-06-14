@@ -109,6 +109,7 @@ public class GameController {
 		boardService.removeBoard((int)gameId);
 		BoardDto boardDto = new BoardDto();
 		boardDto.setgameId((int)game.getGameId());
+		boardDto.setBoardName("Board");
 		Board board = dtoMapper.convertToEntity(boardDto);
 		boardService.saveBoard(board);
 		return new ResponseEntity<>(game.getGameId(), HttpStatus.CREATED);

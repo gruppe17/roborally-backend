@@ -41,7 +41,6 @@ public class Game {
 		return users.remove(userId) != null;
 	}
 
-
 	public int getGameId() {
 		return gameId;
 	}

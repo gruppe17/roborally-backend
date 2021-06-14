@@ -13,7 +13,6 @@ import java.util.HashMap;
 public class BoardDao implements IBoardDao {
 	//gameId, Board
 	static final HashMap<Integer, Board> boards = new HashMap<>();
-	static private int gameIdCounter = 0;
 
 	@Override
 	public Board getBoard(int gameId) {
@@ -22,10 +21,8 @@ public class BoardDao implements IBoardDao {
 
 	@Override
 	public int createBoard(Board board) {
-		gameIdCounter++;
-		board.setGameId(gameIdCounter);
 		boards.put(board.getGameId(), board);
-		return gameIdCounter;
+		return board.getGameId();
 	}
 
 	@Override
