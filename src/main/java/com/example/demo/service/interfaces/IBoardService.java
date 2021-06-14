@@ -8,6 +8,7 @@ import com.example.demo.model.Player;
 
 public interface IBoardService {
     Board getBoard(int boardId) throws ServiceException, DaoException;
+    void removeBoard(int boardId) throws ServiceException, DaoException;
 
     int saveBoard(Board board) throws ServiceException, DaoException;
 

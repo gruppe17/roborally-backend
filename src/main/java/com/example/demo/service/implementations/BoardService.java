@@ -38,6 +38,11 @@ public class BoardService implements IBoardService {
     }
 
     @Override
+    public void removeBoard(int boardId) throws ServiceException, DaoException {
+        boardDao.deleteBoard(boardId);
+    }
+
+    @Override
     public int saveBoard(Board board) throws ServiceException, DaoException {
         int savedBoardId = boardDao.createBoard(board);
         if (savedBoardId < 0) {

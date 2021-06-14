@@ -23,7 +23,7 @@ public interface IGameService {
 
 	boolean joinGame(long gameID, long userID) throws ServiceException, DaoException;
 
-	boolean leaveGame(long userID) throws ServiceException, DaoException;
+	boolean leaveGame(long gameId, long userID) throws ServiceException, DaoException;
 
 	boolean editGameName(long gameID, String name) throws ServiceException, DaoException;
 

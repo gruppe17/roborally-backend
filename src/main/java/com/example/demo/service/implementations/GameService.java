@@ -55,7 +55,7 @@ public class GameService implements IGameService {
     }
 
     @Override
-    public boolean leaveGame(long userID)  throws ServiceException, DaoException {
+    public boolean leaveGame(long gameId, long userID)  throws ServiceException, DaoException {
         return false;
     }
 
