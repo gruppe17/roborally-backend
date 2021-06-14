@@ -107,10 +107,8 @@ public class GameController {
 	public ResponseEntity<Integer> createBoard(@PathVariable("gameId") int gameId) throws ServiceException, DaoException {
 		Game game = gameService.getGame(gameId);
 		boardService.removeBoard((int)gameId);
-		BoardDto boardDto = new BoardDto();
-		boardDto.setgameId((int)game.getGameId());
-		boardDto.setBoardName("Board");
-		Board board = dtoMapper.convertToEntity(boardDto);
+		Board board = new Board(8, 8, "Board");
+		board.setGameId(gameId);
 		boardService.saveBoard(board);
 		return new ResponseEntity<>(game.getGameId(), HttpStatus.CREATED);
 	}

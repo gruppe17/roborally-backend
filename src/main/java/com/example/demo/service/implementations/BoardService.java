@@ -45,9 +45,7 @@ public class BoardService implements IBoardService {
 	@Override
 	public int saveBoard(Board board) throws ServiceException, DaoException {
 		int savedgameId = boardDao.createBoard(board);
-		if (savedgameId < 0) {
-			throw new ServiceException("BoardDao generated invalid gameId " + savedgameId, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+
 		spaceDao.createSpaces(savedgameId, board.getSpaces());
 		return savedgameId;
 	}
