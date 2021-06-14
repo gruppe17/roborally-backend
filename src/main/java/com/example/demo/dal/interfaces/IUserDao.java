@@ -6,5 +6,6 @@ import com.example.demo.model.User;
 
 public interface IUserDao {
     long addUser(long gameId, User user) throws DaoException;
+    long newUser() throws DaoException;
     User getUser(long userId) throws DaoException;
 }

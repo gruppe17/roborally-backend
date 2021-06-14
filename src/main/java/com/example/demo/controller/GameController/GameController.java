@@ -9,6 +9,7 @@ import com.example.demo.model.Player;
 import com.example.demo.model.Space;
 import com.example.demo.service.interfaces.IBoardService;
 import com.example.demo.service.interfaces.IGameService;
+import com.example.demo.service.interfaces.IUserService;
 import com.example.demo.util.mapping.IDtoMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,11 +23,13 @@ import java.util.Collection;
 public class GameController {
     private final IBoardService boardService;
     private final IGameService gameService;
+    private final IUserService userService;
     private final IDtoMapper dtoMapper;
 
-    public GameController(IBoardService boardService, IGameService gameService, IDtoMapper dtoMapper) {
+    public GameController(IBoardService boardService, IGameService gameService, IUserService userService, IDtoMapper dtoMapper) {
         this.boardService = boardService;
         this.gameService = gameService;
+        this.userService = userService;
         this.dtoMapper = dtoMapper;
     }
 

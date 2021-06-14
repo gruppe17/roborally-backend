@@ -18,10 +18,9 @@ public class UserService implements IUserService {
         this.userDao = userDao;
     }
 
-
     @Override
-    public User createUser() throws ServiceException, DaoException {
-        return null;
+    public long createUser() throws ServiceException, DaoException {
+        return userDao.newUser();
     }
 
     @Override
@@ -30,7 +29,13 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User changeUserName(String userName) throws ServiceException, DaoException {
+    public User changeUserName(long id, String userName) throws ServiceException, DaoException {
+        userDao.getUser(id).setUserName(userName);
         return null;
+    }
+
+    @Override
+    public String getUserName(long id) throws ServiceException, DaoException {
+        return userDao.getUser(id).getUserName();
     }
 }

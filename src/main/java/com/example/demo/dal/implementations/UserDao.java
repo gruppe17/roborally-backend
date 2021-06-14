@@ -21,6 +21,13 @@ public class UserDao implements IUserDao {
         return user.getUserId();
     }
 
+    @Override
+    public long newUser() {
+        User user = new User(getUniqueUserId(), "John Doe");
+        users.put(user.getUserId(), user);
+        return user.getUserId();
+    }
+
     private long getUniqueUserId(){
         //Would never return if all ids are taken :(
         long id;

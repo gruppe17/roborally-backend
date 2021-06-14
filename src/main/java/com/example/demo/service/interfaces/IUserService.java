@@ -10,11 +10,13 @@ import java.util.Collection;
 @Service
 public interface IUserService {
 
-    User createUser() throws ServiceException, DaoException;
+    long createUser() throws ServiceException, DaoException;
 
     Collection<User> getUsers() throws ServiceException, DaoException;
 
-    User changeUserName(String userName) throws ServiceException, DaoException;
+    String getUserName(long id) throws ServiceException, DaoException;
+
+    User changeUserName(long id, String userName) throws ServiceException, DaoException;
 
 
 }
