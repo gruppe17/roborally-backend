@@ -3,9 +3,11 @@ package com.example.demo.service.interfaces;
 import com.example.demo.exceptions.DaoException;
 import com.example.demo.exceptions.ServiceException;
 import com.example.demo.model.Game;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
+@Service
 public interface IGameService {
 	Game createGame() throws ServiceException, DaoException;
 
