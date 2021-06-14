@@ -4,19 +4,19 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Game {
-	private long gameId;
+	private int gameId;
 	private String gameName;
 
 	public boolean isStarted() {
 		return started;
 	}
 
-	public List<Long> getUsers() {
+	public List<Integer> getUsers() {
 		return users;
 	}
 
 	private boolean started;
-	private List<Long> users;
+	private List<Integer> users;
 
 	public String getGameName() {
 		return gameName;
@@ -27,25 +27,25 @@ public class Game {
 		return true;
 	}
 
-	public Game(long gameId, String gameName) {
+	public Game(int gameId, String gameName) {
 		this.gameId = gameId;
 		this.gameName = gameName;
 		users = new LinkedList<>();
 	}
 
-	public boolean addUser(long userId){
+	public boolean addUser(int userId){
 		return users.add(userId);
 	}
 
-	public boolean removeUser(long userId){
-		return users.remove(userId);
+	public boolean removeUser(int userId){
+		return users.remove(userId) != null;
 	}
 
 
-	public long getGameId() {
+	public int getGameId() {
 		return gameId;
 	}
-	public void setGameId(long gameId) {
+	public void setGameId(int gameId) {
 		this.gameId = gameId;
 	}
 }

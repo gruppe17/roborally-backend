@@ -9,18 +9,18 @@ import java.util.Collection;
 
 @Service
 public interface IGameService {
-	long createGame() throws ServiceException, DaoException;
+	int createGame() throws ServiceException, DaoException;
 
-	boolean removeGame(long gameId)  throws ServiceException, DaoException;
+	boolean removeGame(int gameId)  throws ServiceException, DaoException;
 
-	Game getGame(long gameID) throws ServiceException, DaoException;
+	Game getGame(int gameID) throws ServiceException, DaoException;
 
 	Collection<Game> getAllGames() throws ServiceException, DaoException;
 
-	boolean joinGame(long gameID, long userID) throws ServiceException, DaoException;
+	boolean joinGame(int gameID, int userID) throws ServiceException, DaoException;
 
-	boolean leaveGame(long gameId, long userID) throws ServiceException, DaoException;
+	boolean leaveGame(int gameId, int userID) throws ServiceException, DaoException;
 
-	boolean editGameName(long gameID, String name) throws ServiceException, DaoException;
+	boolean editGameName(int gameID, String name) throws ServiceException, DaoException;
 
 }

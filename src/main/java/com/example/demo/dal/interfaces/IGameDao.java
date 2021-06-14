@@ -7,14 +7,14 @@ import java.util.List;
 
 
 public interface IGameDao {
-	Game getGame(long gameId) throws DaoException;
+	Game getGame(int gameId) throws DaoException;
 
 	List<Game> getAllGames() throws DaoException;
 
-	long createGame(Game game) throws DaoException;
+	int createGame(Game game) throws DaoException;
 
-	void updateGame(Game game, long gameId) throws DaoException;
+	void updateGame(Game game, int gameId) throws DaoException;
 
-	boolean deleteGame(long gameId) throws DaoException;
+	boolean deleteGame(int gameId) throws DaoException;
 }
 

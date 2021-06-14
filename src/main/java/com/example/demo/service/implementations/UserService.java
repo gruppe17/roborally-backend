@@ -19,23 +19,23 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public long createUser() throws ServiceException, DaoException {
+	public int createUser() throws ServiceException, DaoException {
 		return userDao.newUser();
 	}
 
 	@Override
-	public HashMap<Long, User> getUsers() throws ServiceException, DaoException {
+	public HashMap<Integer, User> getUsers() throws ServiceException, DaoException {
 		return userDao.getUsers();
 	}
 
 	@Override
-	public User changeUserName(long id, String userName) throws ServiceException, DaoException {
+	public User changeUserName(int id, String userName) throws ServiceException, DaoException {
 		userDao.getUser(id).setUserName(userName);
 		return userDao.getUser(id);
 	}
 
 	@Override
-	public User getUser(long id) throws ServiceException, DaoException {
+	public User getUser(int id) throws ServiceException, DaoException {
 		return userDao.getUser(id);
 	}
 }

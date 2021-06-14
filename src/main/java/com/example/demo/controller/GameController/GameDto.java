@@ -1,15 +1,15 @@
 package com.example.demo.controller.GameController;
 
 public class GameDto {
-	private long gameId;
+	private int gameId;
 	private String name;
 	private boolean started;
 
-	public long getGameId() {
+	public int getGameId() {
 		return gameId;
 	}
 
-	public void setGameId(long gameId) {
+	public void setGameId(int gameId) {
 		this.gameId = gameId;
 	}
 

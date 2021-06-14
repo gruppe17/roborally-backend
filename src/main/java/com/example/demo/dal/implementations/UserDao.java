@@ -12,37 +12,37 @@ import java.util.Random;
 
 @Repository
 public class UserDao implements IUserDao {
-	static final HashMap<Long, User> users = new HashMap<>();
+	static final HashMap<Integer, User> users = new HashMap<>();
 	Random random = new Random();
 
 	@Override
-	public long addUser(long gameId, User user) {
+	public int addUser(int gameId, User user) {
 		user.setUserId(getUniqueUserId());
 		users.put(user.getUserId(), user);
 		return user.getUserId();
 	}
 
 	@Override
-	public long newUser() {
+	public int newUser() {
 		User user = new User(getUniqueUserId(), "John Doe");
 		users.put(user.getUserId(), user);
 		return user.getUserId();
 	}
 
-	private long getUniqueUserId(){
+	private int getUniqueUserId(){
 		//Would never return if all ids are taken :(
-		long id;
-		while (users.containsKey(id = random.nextLong()));
+		int id;
+		while (users.containsKey(id = random.nextInt()));
 		return id;
 	}
 
 	@Override
-	public User getUser(long userId) {
+	public User getUser(int userId) {
 		return users.get(userId);
 	}
 
 	@Override
-	public HashMap<Long, User> getUsers() {
+	public HashMap<Integer, User> getUsers() {
 		return users;
 	}
 }

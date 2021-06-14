@@ -15,11 +15,11 @@ import java.util.Random;
 @Repository
 public class GameDao implements IGameDao {
 	//GameId, Game
-	static final HashMap<Long, Game> games = new HashMap<>();
+	static final HashMap<Integer, Game> games = new HashMap<>();
 	Random random = new Random();
 
 	@Override
-	public Game getGame(long gameId) {
+	public Game getGame(int gameId) {
 		return games.get(gameId);
 	}
 
@@ -29,26 +29,26 @@ public class GameDao implements IGameDao {
 	}
 
 	@Override
-	public long createGame(Game game) {
+	public int createGame(Game game) {
 		game.setGameId(getUniqueGameId());
 		games.put(game.getGameId(), game);
 		return game.getGameId();
 	}
 
-	private long getUniqueGameId(){
+	private int getUniqueGameId(){
 		//Would never return if all ids are taken :(
-		long id;
-		while (games.containsKey(id = random.nextLong()));
+		int id;
+		while (games.containsKey(id = random.nextInt()));
 		return id;
 	}
 
 	@Override
-	public void updateGame(Game game, long gameId) {
+	public void updateGame(Game game, int gameId) {
 		games.replace(gameId, game);
 	}
 
 	@Override
-	public boolean deleteGame(long gameId) {
+	public boolean deleteGame(int gameId) {
 		return games.remove(gameId) != null;
 	}
 }

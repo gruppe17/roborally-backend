@@ -6,9 +6,11 @@ import com.example.demo.exceptions.DaoException;
 import com.example.demo.exceptions.ServiceException;
 import com.example.demo.model.Game;
 import com.example.demo.service.interfaces.IGameService;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
+@Service
 public class GameService implements IGameService {
 
     private final GameDao gameDao;
@@ -18,19 +20,19 @@ public class GameService implements IGameService {
     }
 
     @Override
-    public long createGame() throws ServiceException, DaoException {
+    public int createGame() throws ServiceException, DaoException {
         Game game = new Game(0, "Default Game");
-        long id = gameDao.createGame(game);
+        int id = gameDao.createGame(game);
         return id;
     }
 
     @Override
-    public boolean removeGame(long gameId) throws ServiceException, DaoException {
+    public boolean removeGame(int gameId) throws ServiceException, DaoException {
     	return gameDao.deleteGame(gameId);
     }
 
     @Override
-    public Game getGame(long gameID) throws ServiceException, DaoException {
+    public Game getGame(int gameID) throws ServiceException, DaoException {
         return gameDao.getGame(gameID);
     }
 
@@ -40,17 +42,17 @@ public class GameService implements IGameService {
     }
 
     @Override
-    public boolean joinGame(long gameID, long userID) throws ServiceException, DaoException {
+    public boolean joinGame(int gameID, int userID) throws ServiceException, DaoException {
         return gameDao.getGame(gameID).addUser(userID);
     }
 
     @Override
-    public boolean leaveGame(long gameId, long userID)  throws ServiceException, DaoException {
+    public boolean leaveGame(int gameId, int userID)  throws ServiceException, DaoException {
         return gameDao.getGame(gameId).removeUser(userID);
     }
 
     @Override
-    public boolean editGameName(long gameID, String name) throws ServiceException, DaoException {
+    public boolean editGameName(int gameID, String name) throws ServiceException, DaoException {
         return gameDao.getGame(gameID).setGameName(name);
     }
 }

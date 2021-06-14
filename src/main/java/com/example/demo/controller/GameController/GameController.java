@@ -32,6 +32,20 @@ public class GameController {
 		this.dtoMapper = dtoMapper;
 	}
 
+
+	/**
+	 * Endpoint for getting game information
+	 * @param gameId the id of the game we want to get
+	 * @return the game with the associated gameId we provided
+	 */
+	@GetMapping("/game/get/{gameId}")
+	public ResponseEntity<GameDto> getGame(@PathVariable("gameId") int gameId) throws ServiceException, MappingException, DaoException {
+		Game game = gameService.getGame(gameId);
+		System.out.println(game.getGameId());
+
+		return new ResponseEntity<>(dtoMapper.convertToDto(game), HttpStatus.OK);
+	}
+
 	/**
 	 * Endpoint for getting board information
 	 * @param gameId the id of the board we want to get
@@ -62,7 +76,7 @@ public class GameController {
 	 * @param playerDto the player we want to add to the board
 	 * @return the id of the player we have added
 	 */
-	@PostMapping("/game/get/{gameId}/board//player")
+	@PostMapping("/game/get/{gameId}/board/player")
 	public ResponseEntity<Integer> addPlayer(@PathVariable("gameId") int gameId, @RequestBody PlayerDto playerDto) throws ServiceException, MappingException, DaoException {
 		Board board = boardService.getBoard(gameId);
 		Player player = dtoMapper.convertToEntity(playerDto, board);
@@ -90,7 +104,7 @@ public class GameController {
 	 * @throws DaoException
 	 */
 	@PostMapping("/game/get/{gameId}/board/new")
-	public ResponseEntity<Long> createBoard(@PathVariable("gameId") long gameId) throws ServiceException, DaoException {
+	public ResponseEntity<Integer> createBoard(@PathVariable("gameId") int gameId) throws ServiceException, DaoException {
 		Game game = gameService.getGame(gameId);
 		boardService.removeBoard((int)gameId);
 		BoardDto boardDto = new BoardDto();
@@ -142,17 +156,6 @@ public class GameController {
 
 
 	/**
-	 * Endpoint for getting game information
-	 * @param gameId the id of the game we want to get
-	 * @return the game with the associated gameId we provided
-	 */
-	@GetMapping("/game/get/{gameId}")
-	public ResponseEntity<GameDto> getGame(@PathVariable("gameId") int gameId) throws ServiceException, MappingException, DaoException {
-		Game game = gameService.getGame(gameId);
-		return new ResponseEntity<>(dtoMapper.convertToDto(game), HttpStatus.OK);
-	}
-
-	/**
 	 * Endpoint for getting all games
 	 * @return all the games
 	 */
@@ -172,7 +175,7 @@ public class GameController {
 	 * @return nothing
 	 */
 	@DeleteMapping("/game/get/{gameId}/remove")
-	public ResponseEntity<Void> removeGame(@PathVariable("gameId") long gameId) throws ServiceException, DaoException {
+	public ResponseEntity<Void> removeGame(@PathVariable("gameId") int gameId) throws ServiceException, DaoException {
 		gameService.removeGame(gameId);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
@@ -186,7 +189,7 @@ public class GameController {
 	 * @throws DaoException
 	 */
 	@PostMapping("/game/join/{gameId}/{userId}")
-	public ResponseEntity<Boolean> joinGame(@PathVariable("gameId") long gameId, @PathVariable("userId") long userId) throws ServiceException, DaoException {
+	public ResponseEntity<Boolean> joinGame(@PathVariable("gameId") int gameId, @PathVariable("userId") int userId) throws ServiceException, DaoException {
 		boolean result = gameService.joinGame(gameId, userId);
 		Board board = boardService.getBoard((int)gameId);
 		Player player = new Player(board, "red", "John Doe");
@@ -205,7 +208,7 @@ public class GameController {
 	 * @throws DaoException
 	 */
 	@PutMapping("/game/leave/{gameId}/{userId}")
-	public ResponseEntity<Void> leaveGame(@PathVariable("gameId") long gameId, @PathVariable("userId") long userId) throws ServiceException, DaoException{
+	public ResponseEntity<Void> leaveGame(@PathVariable("gameId") int gameId, @PathVariable("userId") int userId) throws ServiceException, DaoException{
 		boolean result = gameService.leaveGame(gameId, userId);
 		Board board = boardService.getBoard((int)gameId);
 		board.removePlayer(board.getPlayer((int)userId));
@@ -222,7 +225,7 @@ public class GameController {
 	 * @throws DaoException
 	 */
 	@PutMapping("/game/get/{gameId}/edit/{name}")
-	public ResponseEntity<Void> editGame(@PathVariable("gameId") long gameId, @PathVariable("name") String name) throws ServiceException, DaoException{
+	public ResponseEntity<Void> editGame(@PathVariable("gameId") int gameId, @PathVariable("name") String name) throws ServiceException, DaoException{
 		boolean result = gameService.editGameName(gameId, name);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
@@ -235,8 +238,8 @@ public class GameController {
 	 * @throws DaoException
 	 */
 	@PostMapping("/user/new")
-	public ResponseEntity<Long> joinGame() throws ServiceException, DaoException {
-		long id = userService.createUser();
+	public ResponseEntity<Integer> joinGame() throws ServiceException, DaoException {
+		int id = userService.createUser();
 		return new ResponseEntity<>(id, HttpStatus.CREATED);
 	}
 
@@ -249,7 +252,7 @@ public class GameController {
 	 * @throws DaoException
 	 */
 	@PutMapping("/user/get/{userId}/edit/{name}")
-	public ResponseEntity<Void> editUserName(@PathVariable("userId") long userId, @PathVariable("name") String name) throws ServiceException, DaoException{
+	public ResponseEntity<Void> editUserName(@PathVariable("userId") int userId, @PathVariable("name") String name) throws ServiceException, DaoException{
 		User result = userService.changeUserName(userId, name);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
@@ -263,7 +266,7 @@ public class GameController {
 	 * @throws DaoException
 	 */
 	@GetMapping("/user/get/{userId}")
-	public ResponseEntity<UserDto> getUser(@PathVariable("userId") long userId) throws ServiceException, MappingException, DaoException {
+	public ResponseEntity<UserDto> getUser(@PathVariable("userId") int userId) throws ServiceException, MappingException, DaoException {
 		User user = userService.getUser(userId);
 		return new ResponseEntity<>(dtoMapper.convertToDto(user), HttpStatus.OK);
 	}
@@ -278,7 +281,7 @@ public class GameController {
 	@GetMapping("/user/all")
 	public ResponseEntity<ArrayList<UserDto>> getUsers() throws ServiceException, MappingException, DaoException {
 		ArrayList<UserDto> userDtos = new ArrayList<>();
-		HashMap<Long, User> users = userService.getUsers();
+		HashMap<Integer, User> users = userService.getUsers();
 
 		for (User user: users.values()) {
 			userDtos.add(dtoMapper.convertToDto(user));

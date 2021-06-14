@@ -2,10 +2,10 @@ package com.example.demo.model;
 
 public class User {
 
-	private long userId;
+	private int userId;
 	private String userName;
 
-	public User(long userId, String userName) {
+	public User(int userId, String userName) {
 		this.userId = userId;
 		this.userName = userName;
 	}
@@ -18,10 +18,10 @@ public class User {
 		this.userName = userName;
 	}
 
-	public long getUserId() {
+	public int getUserId() {
 		return userId;
 	}
-	public void setUserId(long userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 
