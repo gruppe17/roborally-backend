@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import java.util.List;
+
 public class Game {
 	private long gameId;
 	private String gameName;
@@ -8,12 +10,12 @@ public class Game {
 		return started;
 	}
 
-	public User[] getUsers() {
+	public List<User> getUsers() {
 		return users;
 	}
 
 	private boolean started;
-	private User[] users;
+	private List<User> users;
 
 	public String getGameName() {
 		return gameName;
