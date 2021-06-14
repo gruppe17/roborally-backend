@@ -11,54 +11,46 @@ import java.util.Collection;
 
 public class GameService implements IGameService {
 
-	private final GameDao gameDao;
+    private final GameDao gameDao;
 
-	public GameService(GameDao gameDao) {
-		this.gameDao = gameDao;
-	}
+    public GameService(GameDao gameDao) {
+        this.gameDao = gameDao;
+    }
 
-	@Override
-	public Game createGame() throws ServiceException, DaoException {
-		return null;
-	}
+    @Override
+    public long createGame() throws ServiceException, DaoException {
+        Game game = new Game(0, "Default Game");
+        long id = gameDao.createGame(game);
+        return id;
+    }
 
-	@Override
-	public boolean removeGame(long gameId) throws ServiceException, DaoException {
-		return false;
-	}
+    @Override
+    public boolean removeGame(long gameId) throws ServiceException, DaoException {
+        return false;
+    }
 
-	@Override
-	public Game getGame(long gameID) throws ServiceException, DaoException {
-		return null;
-	}
+    @Override
+    public Game getGame(long gameID) throws ServiceException, DaoException {
+        return null;
+    }
 
-	@Override
-	public Collection<Game> getAllGames() throws ServiceException, DaoException {
-		return null;
-	}
+    @Override
+    public Collection<Game> getAllGames() throws ServiceException, DaoException {
+        return null;
+    }
 
-	@Override
-	public boolean setBoard(long gameID) throws ServiceException, DaoException {
-		return false;
-	}
+    @Override
+    public boolean joinGame(long gameID, long userID) throws ServiceException, DaoException {
+        return false;
+    }
 
-	@Override
-	public boolean getBoard(long gameID) throws ServiceException, DaoException {
-		return false;
-	}
+    @Override
+    public boolean leaveGame(long gameId, long userID)  throws ServiceException, DaoException {
+        return false;
+    }
 
-	@Override
-	public boolean joinGame(long gameID, long userID) throws ServiceException, DaoException {
-		return false;
-	}
-
-	@Override
-	public boolean leaveGame(long gameId, long userID)  throws ServiceException, DaoException {
-		return false;
-	}
-
-	@Override
-	public boolean editGameName(long gameID, String name) throws ServiceException, DaoException {
-		return false;
-	}
+    @Override
+    public boolean editGameName(long gameID, String name) throws ServiceException, DaoException {
+        return false;
+    }
 }
