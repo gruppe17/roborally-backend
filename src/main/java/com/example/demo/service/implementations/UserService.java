@@ -25,7 +25,7 @@ public class UserService implements IUserService {
 
     @Override
     public Collection<User> getUsers() throws ServiceException, DaoException {
-        return null;
+        userDao.getUsers();
     }
 
     @Override

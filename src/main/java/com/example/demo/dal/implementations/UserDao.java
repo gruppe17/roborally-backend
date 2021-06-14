@@ -6,6 +6,7 @@ import com.example.demo.model.Player;
 import com.example.demo.model.User;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -38,5 +39,10 @@ public class UserDao implements IUserDao {
     @Override
     public User getUser(long userId) {
         return users.get(userId);
+    }
+
+    @Override
+    public HashMap<Long, User> getUsers() {
+        return users;
     }
 }
