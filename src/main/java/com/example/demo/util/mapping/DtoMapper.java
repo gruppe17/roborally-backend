@@ -1,12 +1,8 @@
 package com.example.demo.util.mapping;
 
-import com.example.demo.controller.GameController.BoardDto;
-import com.example.demo.controller.GameController.PlayerDto;
-import com.example.demo.controller.GameController.SpaceDto;
+import com.example.demo.controller.GameController.*;
 import com.example.demo.exceptions.MappingException;
-import com.example.demo.model.Board;
-import com.example.demo.model.Player;
-import com.example.demo.model.Space;
+import com.example.demo.model.*;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -76,6 +72,34 @@ public class DtoMapper implements IDtoMapper {
         return spaceDto;
     }
 
+    @Override
+    public GameDto convertToDto(Game game) throws MappingException {
+        if(game == null){
+            throw new MappingException("Game was null");
+        }
+
+        GameDto gameDto = new GameDto();
+        gameDto.setGameId(game.getGameId());
+        gameDto.setName(game.getGameName());
+        gameDto.setStarted(game.isStarted());
+        // Add set users
+
+        return gameDto;
+    }
+
+    @Override
+    public UserDto convertToDto(User user) throws MappingException {
+        if(user == null){
+            throw new MappingException("User was null");
+        }
+        UserDto userDto = new UserDto();
+        userDto.setUserId(user.getUserId());
+        userDto.setUserName(user.getUserName());
+
+        return userDto;
+
+    }
+
     public Board convertToEntity(BoardDto boardDto) {
         Board board = new Board(boardDto.getWidth(), boardDto.getHeight(), boardDto.getBoardName());
         if (boardDto.getBoardId() != -1) {
@@ -99,5 +123,15 @@ public class DtoMapper implements IDtoMapper {
             return new Player(board, playerDto.getPlayerColor(), playerDto.getPlayerName());
         }
         return null;
+    }
+
+    @Override
+    public Game convertToEntity(GameDto gameDto) throws MappingException {
+        return new Game(gameDto.getGameId(), gameDto.getName());
+    }
+
+    @Override
+    public User convertToEntity(UserDto userDto, Game game) throws MappingException {
+        return new User(userDto.getUserId(), userDto.getUserName());
     }
 }
