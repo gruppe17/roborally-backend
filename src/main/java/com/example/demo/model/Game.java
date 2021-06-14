@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Game {
@@ -29,6 +30,7 @@ public class Game {
 	public Game(long gameId, String gameName) {
 		this.gameId = gameId;
 		this.gameName = gameName;
+		users = new LinkedList<>();
 	}
 
 
