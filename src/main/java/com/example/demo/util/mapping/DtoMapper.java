@@ -12,7 +12,7 @@ public class DtoMapper implements IDtoMapper {
             throw new MappingException("Player was null");
         }
         PlayerDto playerDto = new PlayerDto();
-        playerDto.setBoardId(player.board.getGameId());
+        playerDto.setgameId(player.board.getGameId());
         playerDto.setPlayerId(player.getPlayerId());
         playerDto.setPlayerName(player.getName());
         playerDto.setPlayerColor(player.getColor());
@@ -31,7 +31,7 @@ public class DtoMapper implements IDtoMapper {
             throw new MappingException("Board was null");
         }
         BoardDto boardDto = new BoardDto();
-        boardDto.setBoardId(board.getGameId());
+        boardDto.setgameId(board.getGameId());
         boardDto.setBoardName(board.boardName);
         boardDto.setHeight(board.height);
         boardDto.setWidth(board.width);
@@ -102,8 +102,8 @@ public class DtoMapper implements IDtoMapper {
 
     public Board convertToEntity(BoardDto boardDto) {
         Board board = new Board(boardDto.getWidth(), boardDto.getHeight(), boardDto.getBoardName());
-        if (boardDto.getBoardId() != -1) {
-            board.setGameId(boardDto.getBoardId());
+        if (boardDto.getgameId() != -1) {
+            board.setGameId(boardDto.getgameId());
         }
         return board;
     }
@@ -113,7 +113,7 @@ public class DtoMapper implements IDtoMapper {
     }
 
     public Player convertToEntity(PlayerDto playerDto, Board board) throws MappingException {
-        if (playerDto.getBoardId() == null) { //We cant have a player without a board id
+        if (playerDto.getgameId() == null) { //We cant have a player without a board id
             throw new MappingException("PlayerDto did not contain a board id");
         }
         if (board == null) { //Incase the provided board id is invalid

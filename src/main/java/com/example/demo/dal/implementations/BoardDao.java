@@ -11,30 +11,30 @@ import java.util.HashMap;
  */
 @Repository
 public class BoardDao implements IBoardDao {
-    //BoardId, Board
+    //gameId, Board
     static final HashMap<Integer, Board> boards = new HashMap<>();
-    static private int boardIdCounter = 0;
+    static private int gameIdCounter = 0;
 
     @Override
-    public Board getBoard(int boardId) {
-        return boards.get(boardId);
+    public Board getBoard(int gameId) {
+        return boards.get(gameId);
     }
 
     @Override
     public int createBoard(Board board) {
-        boardIdCounter++;
-        board.setGameId(boardIdCounter);
+        gameIdCounter++;
+        board.setGameId(gameIdCounter);
         boards.put(board.getGameId(), board);
-        return boardIdCounter;
+        return gameIdCounter;
     }
 
     @Override
-    public void updateBoard(Board board, int boardId) {
-        boards.replace(boardId, board);
+    public void updateBoard(Board board, int gameId) {
+        boards.replace(gameId, board);
     }
 
     @Override
-    public void deleteBoard(int boardId) {
-        boards.remove(boardId);
+    public void deleteBoard(int gameId) {
+        boards.remove(gameId);
     }
 }

@@ -16,7 +16,7 @@ public class PlayerDao implements IPlayerDao {
     static private int playerIdCounter = 0;
 
     @Override
-    public int addPlayer(int boardId, Player player) {
+    public int addPlayer(int gameId, Player player) {
         playerIdCounter++;
         player.setPlayerId(playerIdCounter);
         players.put(player.getPlayerId(), player);

@@ -2,7 +2,7 @@ package com.example.demo.controller.GameController;
 
 public class BoardDto {
 
-    private Integer boardId;
+    private Integer gameId;
     private String boardName;
     private int height;
     private int width;
@@ -18,8 +18,8 @@ public class BoardDto {
         this.playerDtos = playerDtos;
     }
 
-    public void setBoardId(Integer boardId) {
-        this.boardId = boardId;
+    public void setgameId(Integer gameId) {
+        this.gameId = gameId;
     }
 
     public PlayerDto getCurrentPlayerDto() {
@@ -38,12 +38,12 @@ public class BoardDto {
         this.spaceDtos = spaceDtos;
     }
 
-    public int getBoardId() {
-        return boardId;
+    public int getgameId() {
+        return gameId;
     }
 
-    public void setBoardId(int boardId) {
-        this.boardId = boardId;
+    public void setgameId(int gameId) {
+        this.gameId = gameId;
     }
 
     public String getBoardName() {

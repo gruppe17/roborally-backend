@@ -11,22 +11,22 @@ import java.util.HashMap;
  */
 @Repository
 public class SpaceDao implements ISpaceDao {
-    //BoardId, Space[][]
+    //gameId, Space[][]
     static final HashMap<Integer, Space[][]> spaces = new HashMap<>();
 
     @Override
-    public void createSpaces(int boardId, Space[][] spacesToAdd) {
-        spaces.put(boardId, spacesToAdd);
+    public void createSpaces(int gameId, Space[][] spacesToAdd) {
+        spaces.put(gameId, spacesToAdd);
     }
 
     @Override
-    public void updateSpaces(int boardId, Space[][] spacesToUpdate) {
-        spaces.replace(boardId, spacesToUpdate);
+    public void updateSpaces(int gameId, Space[][] spacesToUpdate) {
+        spaces.replace(gameId, spacesToUpdate);
     }
 
     @Override
-    public Space[][] getSpaces(int boardId) {
-        return spaces.get(boardId);
+    public Space[][] getSpaces(int gameId) {
+        return spaces.get(gameId);
     }
 
 }

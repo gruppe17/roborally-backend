@@ -1,19 +1,19 @@
 package com.example.demo.controller.GameController;
 
 public class PlayerDto {
-    private Integer boardId;
+    private Integer gameId;
     private Integer playerId;
     private String playerName;
     private String playerColor;
     private Integer x;
     private Integer y;
 
-    public Integer getBoardId() {
-        return boardId;
+    public Integer getgameId() {
+        return gameId;
     }
 
-    public void setBoardId(Integer boardId) {
-        this.boardId = boardId;
+    public void setgameId(Integer gameId) {
+        this.gameId = gameId;
     }
 
     public Integer getPlayerId() {

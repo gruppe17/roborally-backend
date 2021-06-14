@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 
 @RestController
 @CrossOrigin
@@ -34,7 +35,7 @@ public class GameController {
     /**
      * Endpoint for getting board information
      * @param gameId the id of the board we want to get
-     * @return the board with the associated boardId we provided
+     * @return the board with the associated gameId we provided
      */
     @GetMapping("/game/get/{gameId}/board")
     public ResponseEntity<BoardDto> getBoard(@PathVariable("gameId") int gameId) throws ServiceException, MappingException, DaoException {
@@ -93,7 +94,7 @@ public class GameController {
        Game game = gameService.getGame(gameId);
        boardService.removeBoard((int)gameId);
        BoardDto boardDto = new BoardDto();
-       boardDto.setBoardId((int)game.getGameId());
+       boardDto.setgameId((int)game.getGameId());
        Board board = dtoMapper.convertToEntity(boardDto);
        boardService.saveBoard(board);
        return new ResponseEntity<>(game.getGameId(), HttpStatus.CREATED);
@@ -272,9 +273,9 @@ public class GameController {
     @GetMapping("/user/all")
     public ResponseEntity<ArrayList<UserDto>> getUsers() throws ServiceException, MappingException, DaoException {
         ArrayList<UserDto> userDtos = new ArrayList<>();
-        Collection<User> users = userService.getUsers();
+        HashMap<Long, User> users = userService.getUsers();
 
-        for (User user: users) {
+        for (User user: users.values()) {
             userDtos.add(dtoMapper.convertToDto(user));
         }
         return new ResponseEntity<>(userDtos, HttpStatus.OK);

@@ -5,11 +5,11 @@ import com.example.demo.model.Board;
 
 
 public interface IBoardDao {
-    Board getBoard(int boardId) throws DaoException;
+    Board getBoard(int gameId) throws DaoException;
 
     int createBoard(Board board) throws DaoException;
 
-    void updateBoard(Board board, int boardId) throws DaoException;
+    void updateBoard(Board board, int gameId) throws DaoException;
 
-    void deleteBoard(int boardId) throws DaoException;
+    void deleteBoard(int gameId) throws DaoException;
 }

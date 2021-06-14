@@ -25,60 +25,60 @@ public class BoardService implements IBoardService {
     }
 
     @Override
-    public Board getBoard(int boardId) throws ServiceException, DaoException {
-        if (boardId < 0) {
-            throw new ServiceException("Invalid board id " + boardId, HttpStatus.BAD_REQUEST);
+    public Board getBoard(int gameId) throws ServiceException, DaoException {
+        if (gameId < 0) {
+            throw new ServiceException("Invalid board id " + gameId, HttpStatus.BAD_REQUEST);
         }
-        Board board = boardDao.getBoard(boardId);
+        Board board = boardDao.getBoard(gameId);
         if (board == null) {
-            throw new ServiceException("No board found with board id " + boardId, HttpStatus.NOT_FOUND);
+            throw new ServiceException("No board found with board id " + gameId, HttpStatus.NOT_FOUND);
         }
 
         return board;
     }
 
     @Override
-    public void removeBoard(int boardId) throws ServiceException, DaoException {
-        boardDao.deleteBoard(boardId);
+    public void removeBoard(int gameId) throws ServiceException, DaoException {
+        boardDao.deleteBoard(gameId);
     }
 
     @Override
     public int saveBoard(Board board) throws ServiceException, DaoException {
-        int savedBoardId = boardDao.createBoard(board);
-        if (savedBoardId < 0) {
-            throw new ServiceException("BoardDao generated invalid boardId " + savedBoardId, HttpStatus.INTERNAL_SERVER_ERROR);
+        int savedgameId = boardDao.createBoard(board);
+        if (savedgameId < 0) {
+            throw new ServiceException("BoardDao generated invalid gameId " + savedgameId, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        spaceDao.createSpaces(savedBoardId, board.getSpaces());
-        return savedBoardId;
+        spaceDao.createSpaces(savedgameId, board.getSpaces());
+        return savedgameId;
     }
 
     @Override
-    public Player getCurrentPlayer(int boardId) throws ServiceException, DaoException {
-        if (boardId < 0) {
-            throw new ServiceException("Invalid board id " + boardId, HttpStatus.BAD_REQUEST);
+    public Player getCurrentPlayer(int gameId) throws ServiceException, DaoException {
+        if (gameId < 0) {
+            throw new ServiceException("Invalid board id " + gameId, HttpStatus.BAD_REQUEST);
         }
-        Board board = boardDao.getBoard(boardId);
+        Board board = boardDao.getBoard(gameId);
         if (board == null) {
-            throw new ServiceException("No board found for board id " + boardId, HttpStatus.NOT_FOUND);
+            throw new ServiceException("No board found for board id " + gameId, HttpStatus.NOT_FOUND);
         }
         Player player = board.getCurrentPlayer();
         if (player == null) {
-            throw new ServiceException("The board with id " + boardId + " has no current player", HttpStatus.NOT_FOUND);
+            throw new ServiceException("The board with id " + gameId + " has no current player", HttpStatus.NOT_FOUND);
         }
         return player;
     }
 
     @Override
-    public void setCurrentPlayer(int boardId, int playerId) throws ServiceException, DaoException {
-        if (boardId < 0) {
-            throw new ServiceException("Invalid board id " + boardId, HttpStatus.BAD_REQUEST);
+    public void setCurrentPlayer(int gameId, int playerId) throws ServiceException, DaoException {
+        if (gameId < 0) {
+            throw new ServiceException("Invalid board id " + gameId, HttpStatus.BAD_REQUEST);
         }
         if (playerId < 0) {
             throw new ServiceException("Invalid player id " + playerId, HttpStatus.BAD_REQUEST);
         }
-        Board board = boardDao.getBoard(boardId);
+        Board board = boardDao.getBoard(gameId);
         if (board == null) {
-            throw new ServiceException("No board found for board id " + boardId, HttpStatus.NOT_FOUND);
+            throw new ServiceException("No board found for board id " + gameId, HttpStatus.NOT_FOUND);
         }
         Player player = playerDao.getPlayer(playerId);
         if (player == null) {
@@ -89,26 +89,26 @@ public class BoardService implements IBoardService {
     }
 
     @Override
-    public int addPlayer(int boardId, Player player) throws ServiceException, DaoException {
+    public int addPlayer(int gameId, Player player) throws ServiceException, DaoException {
         if (player == null) {
             throw new ServiceException("Player to add to board was null", HttpStatus.BAD_REQUEST);
         }
-        Board board = this.getBoard(boardId);
-        int playerId = playerDao.addPlayer(boardId, player);
+        Board board = this.getBoard(gameId);
+        int playerId = playerDao.addPlayer(gameId, player);
         board.addPlayer(player);
         boardDao.updateBoard(board, board.getGameId());
         return playerId;
     }
 
     @Override
-    public void moveCurrentPlayer(int boardId, int x, int y) throws ServiceException, DaoException {
-        Board board = this.getBoard(boardId);
+    public void moveCurrentPlayer(int gameId, int x, int y) throws ServiceException, DaoException {
+        Board board = this.getBoard(gameId);
         Player currentPlayer = board.getCurrentPlayer();
         if (currentPlayer == null) {
-            throw new ServiceException("The board " + boardId + " has no current player", HttpStatus.BAD_REQUEST);
+            throw new ServiceException("The board " + gameId + " has no current player", HttpStatus.BAD_REQUEST);
         }
         if (x < 0 || y < 0 || x > board.height || y > board.width) {
-            throw new ServiceException("Space coordinates (" + x + "," + y + ") were invalid for board" + boardId, HttpStatus.BAD_REQUEST);
+            throw new ServiceException("Space coordinates (" + x + "," + y + ") were invalid for board" + gameId, HttpStatus.BAD_REQUEST);
         }
         Space targetSpace = board.getSpace(x, y);
         if (targetSpace == null) {
@@ -129,8 +129,8 @@ public class BoardService implements IBoardService {
     }
 
     @Override
-    public void switchCurrentPlayer(int boardId) throws ServiceException, DaoException {
-        Board board = this.getBoard(boardId);
+    public void switchCurrentPlayer(int gameId) throws ServiceException, DaoException {
+        Board board = this.getBoard(gameId);
         int amountOfPlayers = board.getPlayersNumber();
         if (amountOfPlayers <= 0) {
             throw new ServiceException("Trying to switch current player, but board has no players", HttpStatus.BAD_REQUEST);
