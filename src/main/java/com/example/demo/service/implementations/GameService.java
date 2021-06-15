@@ -43,7 +43,9 @@ public class GameService implements IGameService {
 
     @Override
     public boolean joinGame(int gameID, int userID) throws ServiceException, DaoException {
-        return gameDao.getGame(gameID).addUser(userID);
+        Game game = gameDao.getGame(gameID);
+        if (game == null) return false;
+        return game.addUser(userID);
     }
 
     @Override
