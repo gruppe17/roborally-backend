@@ -190,16 +190,21 @@ public class GameController {
 	@PostMapping("/game/join/{gameId}/{userId}")
 	public ResponseEntity<Boolean> joinGame(@PathVariable("gameId") int gameId, @PathVariable("userId") int userId) throws ServiceException, DaoException {
 		boolean result = gameService.joinGame(gameId, userId);
-		User user = userService.getUser(userId);
-		Board board = boardService.getBoard(gameId);
-		if(board == null || user == null){
-			return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
-		}
-		Player player = new Player(board, "red", user.getUserName());
-		player.setPlayerId(userId);
-		boardService.addPlayer(gameId, player);
+		if (!result) return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
+
+		boolean addedUserToBoard = addUserToBoard(userService.getUser(userId), boardService.getBoard(gameId));
+		if (!addedUserToBoard) return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
 
 		return new ResponseEntity<>(result, HttpStatus.CREATED);
+	}
+
+	private boolean addUserToBoard(User user, Board board) throws ServiceException, DaoException {
+		if (user == null || board == null ) return false;
+
+		Player player = new Player(board, "red", user.getUserName());
+		player.setPlayerId(user.getUserId());
+		boardService.addPlayer(board.getGameId(), player);
+		return true;
 	}
 
 	/**
