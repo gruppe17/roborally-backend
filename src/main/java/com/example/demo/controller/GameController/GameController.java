@@ -252,7 +252,7 @@ public class GameController {
 	 * @throws DaoException
 	 */
 	@PostMapping("/user/new")
-	public ResponseEntity<Integer> joinGame() throws ServiceException, DaoException {
+	public ResponseEntity<Integer> newUser() throws ServiceException, DaoException {
 		int id = userService.createUser();
 		return new ResponseEntity<>(id, HttpStatus.CREATED);
 	}
