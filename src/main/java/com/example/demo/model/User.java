@@ -4,6 +4,7 @@ public class User {
 
 	private int userId;
 	private String userName;
+	private Integer currentGameId;
 
 	public User(int userId, String userName) {
 		this.userId = userId;
@@ -25,5 +26,10 @@ public class User {
 		this.userId = userId;
 	}
 
-
+	public Integer getCurrentGameId() {
+		return currentGameId;
+	}
+	public void setCurrentGameId(int currentGameId) {
+		this.currentGameId = currentGameId;
+	}
 }
