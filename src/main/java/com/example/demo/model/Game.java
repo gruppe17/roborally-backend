@@ -38,7 +38,7 @@ public class Game {
 	}
 
 	public boolean removeUser(int userId){
-		return users.remove(userId) != null;
+		return users.remove(Integer.valueOf(userId));
 	}
 
 	public int getGameId() {
