@@ -4,8 +4,8 @@ import com.example.demo.dal.interfaces.IUserDao;
 import com.example.demo.exceptions.DaoException;
 import com.example.demo.model.Player;
 import com.example.demo.model.User;
+import org.kohsuke.randname.RandomNameGenerator;
 import org.springframework.stereotype.Repository;
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Random;
@@ -14,7 +14,7 @@ import java.util.Random;
 public class UserDao implements IUserDao {
 	static final HashMap<Integer, User> users = new HashMap<>();
 	Random random = new Random();
-
+    RandomNameGenerator nameGenerator = new RandomNameGenerator(random.nextInt());
 	@Override
 	public int addUser(int gameId, User user) {
 		user.setUserId(getUniqueUserId());
@@ -24,7 +24,9 @@ public class UserDao implements IUserDao {
 
 	@Override
 	public int newUser() {
-		User user = new User(getUniqueUserId(), "John Doe");
+
+
+		User user = new User(getUniqueUserId(), nameGenerator.next());
 		users.put(user.getUserId(), user);
 		return user.getUserId();
 	}
