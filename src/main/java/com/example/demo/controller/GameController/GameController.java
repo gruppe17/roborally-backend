@@ -226,7 +226,9 @@ public class GameController {
 	@PutMapping("/game/leave/{gameId}/{userId}")
 	public ResponseEntity<Boolean> leaveGame(@PathVariable("gameId") int gameId, @PathVariable("userId") int userId) throws ServiceException, DaoException{
 		boolean didLeave = gameService.leaveGame(gameId, userId);
-		if (!didLeave) return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+		if (!didLeave) {
+			return leaveDeadGame(gameId, userId);
+		}
 		//Player can't be null as they were removed from the game.
 		User user = userService.getUser(userId);
 		user.setCurrentGameId(null);
@@ -242,6 +244,14 @@ public class GameController {
 		}
 
 		return new ResponseEntity<>(board.removePlayer(player), HttpStatus.OK);
+	}
+
+	private ResponseEntity<Boolean> leaveDeadGame(Integer gameId, Integer userId) throws ServiceException, DaoException {
+		User user;
+		if (userId == null || (user = userService.getUser(userId)) == null) return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
+		if (gameService.getGame(gameId) != null) return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
+		user.setCurrentGameId(null);
+		return new ResponseEntity<>(true, HttpStatus.OK);
 	}
 
 	/**
