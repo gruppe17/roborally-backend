@@ -5,6 +5,9 @@ import com.example.demo.exceptions.MappingException;
 import com.example.demo.model.*;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class DtoMapper implements IDtoMapper {
 	public PlayerDto convertToDto(Player player) throws MappingException {
@@ -82,8 +85,7 @@ public class DtoMapper implements IDtoMapper {
 		gameDto.setGameId(game.getGameId());
 		gameDto.setName(game.getGameName());
 		gameDto.setStarted(game.isStarted());
-		// Add set users
-
+		gameDto.setUsers(game.getUsers());
 		return gameDto;
 	}
 
@@ -100,11 +102,15 @@ public class DtoMapper implements IDtoMapper {
 
 	}
 
-	public Board convertToEntity(BoardDto boardDto) {
+	public Board convertToEntity(BoardDto boardDto) throws MappingException {
 		Board board = new Board(boardDto.getWidth(), boardDto.getHeight(), boardDto.getBoardName());
-		if (boardDto.getgameId() != -1) {
-			board.setGameId(boardDto.getgameId());
+		board.setGameId(boardDto.getgameId());
+
+		for (PlayerDto playerDto: boardDto.getPlayerDtos()
+		     ) {
+			board.addPlayer(convertToEntity(playerDto, board));
 		}
+
 		return board;
 	}
 
@@ -127,7 +133,14 @@ public class DtoMapper implements IDtoMapper {
 
 	@Override
 	public Game convertToEntity(GameDto gameDto) throws MappingException {
-		return new Game(gameDto.getGameId(), gameDto.getName());
+		Game game = new Game(gameDto.getGameId(), gameDto.getName());
+
+		for (int userDto: game.getUsers()
+		) {
+			game.addUser(userDto);
+		}
+		game.setStarted(gameDto.isStarted());
+		return game;
 	}
 
 	@Override
