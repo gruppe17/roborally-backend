@@ -7,6 +7,10 @@ public class Game {
 	private int gameId;
 	private String gameName;
 
+	public void setStarted(boolean started) {
+		this.started = started;
+	}
+
 	public boolean isStarted() {
 		return started;
 	}

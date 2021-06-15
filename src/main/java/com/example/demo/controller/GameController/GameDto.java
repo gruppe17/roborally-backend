@@ -1,5 +1,7 @@
 package com.example.demo.controller.GameController;
 
+import java.util.List;
+
 public class GameDto {
 	private int gameId;
 	private String name;
@@ -29,13 +31,13 @@ public class GameDto {
 		this.started = started;
 	}
 
-	public UserDto[] getUsers() {
+	public List<Integer> getUsers() {
 		return users;
 	}
 
-	public void setUsers(UserDto[] users) {
+	public void setUsers (List<Integer >users) {
 		this.users = users;
 	}
 
-	private UserDto[] users;
+	private List<Integer> users;
 }
