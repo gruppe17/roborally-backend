@@ -211,12 +211,23 @@ public class GameController {
 	 * @throws DaoException
 	 */
 	@PutMapping("/game/leave/{gameId}/{userId}")
-	public ResponseEntity<Void> leaveGame(@PathVariable("gameId") int gameId, @PathVariable("userId") int userId) throws ServiceException, DaoException{
+	public ResponseEntity<Boolean> leaveGame(@PathVariable("gameId") int gameId, @PathVariable("userId") int userId) throws ServiceException, DaoException{
 		boolean result = gameService.leaveGame(gameId, userId);
-		Board board = boardService.getBoard((int)gameId);
-		board.removePlayer(board.getPlayer((int)userId));
+		Board board = boardService.getBoard(gameId);
 
-		return new ResponseEntity<>(HttpStatus.OK);
+		if(board == null ){
+			return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+		}
+
+		Player player = board.getPlayer(userId);
+
+		if(player == null ){
+			return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+		}
+
+		board.removePlayer(player);
+
+		return new ResponseEntity<>(board.getPlayer(userId) == null, HttpStatus.OK);
 	}
 
 	/**
