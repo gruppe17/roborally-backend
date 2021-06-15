@@ -26,9 +26,6 @@ public class BoardService implements IBoardService {
 
 	@Override
 	public Board getBoard(int gameId) throws ServiceException, DaoException {
-		if (gameId < 0) {
-			throw new ServiceException("Invalid board id " + gameId, HttpStatus.BAD_REQUEST);
-		}
 		Board board = boardDao.getBoard(gameId);
 		if (board == null) {
 			throw new ServiceException("No board found with board id " + gameId, HttpStatus.NOT_FOUND);
