@@ -29,7 +29,7 @@ public class User {
 	public Integer getCurrentGameId() {
 		return currentGameId;
 	}
-	public void setCurrentGameId(int currentGameId) {
+	public void setCurrentGameId(Integer currentGameId) {
 		this.currentGameId = currentGameId;
 	}
 }
