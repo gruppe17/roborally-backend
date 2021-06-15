@@ -18,5 +18,5 @@ public interface IUserService {
 
 	User changeUserName(int id, String userName) throws ServiceException, DaoException;
 
-
+	boolean removeUser(int id) throws ServiceException, DaoException;
 }

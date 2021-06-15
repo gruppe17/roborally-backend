@@ -11,5 +11,6 @@ public interface IUserDao {
 	int addUser(int gameId, User user) throws DaoException;
 	int newUser() throws DaoException;
 	User getUser(int userId) throws DaoException;
-	HashMap<Integer, User> getUsers();
+	HashMap<Integer, User> getUsers() throws DaoException;
+	boolean deleteUser(int id) throws DaoException;
 }

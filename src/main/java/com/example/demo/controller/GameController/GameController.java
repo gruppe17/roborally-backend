@@ -287,4 +287,11 @@ public class GameController {
 		}
 		return new ResponseEntity<>(userDtos, HttpStatus.OK);
 	}
+
+
+	@PutMapping("/user/get/{userId}/remove")
+	public ResponseEntity<Boolean> deleteUser(@PathVariable("userId") int userId) throws ServiceException, DaoException{
+		boolean result = userService.removeUser(userId);
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
 }

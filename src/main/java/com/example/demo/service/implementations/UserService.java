@@ -38,4 +38,10 @@ public class UserService implements IUserService {
 	public User getUser(int id) throws ServiceException, DaoException {
 		return userDao.getUser(id);
 	}
+
+	@Override
+	public boolean removeUser(int id) throws ServiceException, DaoException{
+		userDao.deleteUser(id);
+		return userDao.getUser(id) == null;
+	}
 }

@@ -45,4 +45,9 @@ public class UserDao implements IUserDao {
 	public HashMap<Integer, User> getUsers() {
 		return users;
 	}
+
+	@Override
+	public boolean deleteUser(int id) {
+		return users.remove(id) != null;
+	}
 }
