@@ -9,6 +9,7 @@ import com.example.demo.service.interfaces.IBoardService;
 import com.example.demo.service.interfaces.IGameService;
 import com.example.demo.service.interfaces.IUserService;
 import com.example.demo.util.mapping.IDtoMapper;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -191,7 +192,7 @@ public class GameController {
 	public ResponseEntity<Boolean> joinGame(@PathVariable("gameId") int gameId, @PathVariable("userId") int userId) throws ServiceException, DaoException {
 		User user = userService.getUser(userId);
 		boolean result;
-		if (user.getCurrentGameId() != null)  {
+		if (user.getCurrentGameId() != null && !leaveDeadGame(user.getCurrentGameId(), userId).getBody())  {
 			result = user.getCurrentGameId() == gameId;
 			return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
 		}
@@ -246,6 +247,7 @@ public class GameController {
 		return new ResponseEntity<>(board.removePlayer(player), HttpStatus.OK);
 	}
 
+	@NotNull
 	private ResponseEntity<Boolean> leaveDeadGame(Integer gameId, Integer userId) throws ServiceException, DaoException {
 		User user;
 		if (userId == null || (user = userService.getUser(userId)) == null) return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
