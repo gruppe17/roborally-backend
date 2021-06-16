@@ -97,7 +97,8 @@ public class DtoMapper implements IDtoMapper {
 		UserDto userDto = new UserDto();
 		userDto.setUserId(user.getUserId());
 		userDto.setUserName(user.getUserName());
-		userDto.setCurrentGame(user.getCurrentGameId());
+		int gameId = user.getCurrentGameId();
+		userDto.setCurrentGame(user.getCurrentGameId() == null ? 0 : gameId);
 		return userDto;
 
 	}
