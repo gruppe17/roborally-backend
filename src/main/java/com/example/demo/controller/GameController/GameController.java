@@ -92,8 +92,12 @@ public class GameController {
 	 * @throws DaoException
 	 */
 	@PostMapping("/game/new")
-	public ResponseEntity<Long> createGame() throws ServiceException, DaoException {
-		long gameId = gameService.createGame();
+	public ResponseEntity<Integer> createGame() throws ServiceException, DaoException {
+		int gameId = gameService.createGame();
+		boardService.removeBoard(gameId);
+		Board board = new Board(8, 8, "Board");
+		board.setGameId(gameId);
+		boardService.saveBoard(board);
 		return new ResponseEntity<>(gameId, HttpStatus.CREATED);
 	}
 
@@ -191,6 +195,7 @@ public class GameController {
 	@PostMapping("/game/join/{gameId}/{userId}")
 	public ResponseEntity<Boolean> joinGame(@PathVariable("gameId") int gameId, @PathVariable("userId") int userId) throws ServiceException, DaoException {
 		User user = userService.getUser(userId);
+		if(user == null) return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
 		boolean result;
 		if (user.getCurrentGameId() != null && !leaveDeadGame(user.getCurrentGameId(), userId).getBody())  {
 			result = user.getCurrentGameId() == gameId;

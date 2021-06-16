@@ -22,6 +22,7 @@ public class BoardDao implements IBoardDao {
 	@Override
 	public int createBoard(Board board) {
 		boards.put(board.getGameId(), board);
+		System.out.println(boards);
 		return board.getGameId();
 	}
 
