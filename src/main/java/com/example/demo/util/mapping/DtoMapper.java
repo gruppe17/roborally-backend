@@ -97,7 +97,7 @@ public class DtoMapper implements IDtoMapper {
 		UserDto userDto = new UserDto();
 		userDto.setUserId(user.getUserId());
 		userDto.setUserName(user.getUserName());
-
+		userDto.setCurrentGame(user.getCurrentGameId());
 		return userDto;
 
 	}
@@ -145,6 +145,6 @@ public class DtoMapper implements IDtoMapper {
 
 	@Override
 	public User convertToEntity(UserDto userDto, Game game) throws MappingException {
-		return new User(userDto.getUserId(), userDto.getUserName());
+		return new User(userDto.getUserId(), userDto.getUserName(), userDto.getCurrentGame());
 	}
 }

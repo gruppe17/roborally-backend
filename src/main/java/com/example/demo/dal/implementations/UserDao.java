@@ -26,7 +26,7 @@ public class UserDao implements IUserDao {
 	public int newUser() {
 
 
-		User user = new User(getUniqueUserId(), nameGenerator.next());
+		User user = new User(getUniqueUserId(), nameGenerator.next(), 0);
 		users.put(user.getUserId(), user);
 		return user.getUserId();
 	}

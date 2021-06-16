@@ -17,6 +17,15 @@ public class UserDto {
 		this.userName = userName;
 	}
 
+	public int getCurrentGame() {
+		return currentGame;
+	}
+
+	public void setCurrentGame(int currentGame) {
+		this.currentGame = currentGame;
+	}
+
 	private int userId;
 	private String userName;
+	private int currentGame;
 }

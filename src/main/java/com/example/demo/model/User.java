@@ -4,12 +4,14 @@ public class User {
 
 	private int userId;
 	private String userName;
-	private Integer currentGameId;
 
-	public User(int userId, String userName) {
+	public User(int userId, String userName, int currentGameId) {
 		this.userId = userId;
 		this.userName = userName;
+		this.currentGameId = currentGameId;
 	}
+
+	private Integer currentGameId;
 
 	public String getUserName() {
 		return userName;
