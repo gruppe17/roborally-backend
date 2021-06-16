@@ -42,8 +42,8 @@ public class GameController {
 	@GetMapping("/game/get/{gameId}")
 	public ResponseEntity<GameDto> getGame(@PathVariable("gameId") int gameId) throws ServiceException, MappingException, DaoException {
 		Game game = gameService.getGame(gameId);
-		System.out.println(game.getGameId());
-
+		if(game == null)
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		return new ResponseEntity<>(dtoMapper.convertToDto(game), HttpStatus.OK);
 	}
 
