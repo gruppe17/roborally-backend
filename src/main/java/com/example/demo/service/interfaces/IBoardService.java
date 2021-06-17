@@ -3,6 +3,7 @@ package com.example.demo.service.interfaces;
 import com.example.demo.exceptions.DaoException;
 import com.example.demo.exceptions.ServiceException;
 import com.example.demo.model.Board;
+import com.example.demo.model.Game;
 import com.example.demo.model.Player;
 
 
@@ -10,7 +11,7 @@ public interface IBoardService {
 	Board getBoard(int gameId) throws ServiceException, DaoException;
 	void removeBoard(int gameId) throws ServiceException, DaoException;
 
-	int saveBoard(Board board) throws ServiceException, DaoException;
+	int saveBoard(Game game, Board board) throws ServiceException, DaoException;
 
 	Player getCurrentPlayer(int gameId) throws ServiceException, DaoException;
 
