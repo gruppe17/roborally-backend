@@ -237,7 +237,7 @@ public class GameController {
 	@NotNull
 	private ResponseEntity<Boolean> leaveDeadGame(Integer gameId, Integer userId) throws ServiceException, DaoException {
 		User user;
-		if (userId == null || (user = userService.getUser(userId)) == null) return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
+		if (userId == null || (user = userService.getUser(userId)) == null) throw new ServiceException("Can't leave game as user can't be found", HttpStatus.NOT_FOUND);
 		if (gameService.getGame(gameId) != null) return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
 		user.setCurrentGameId(null);
 		return new ResponseEntity<>(true, HttpStatus.OK);

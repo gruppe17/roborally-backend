@@ -44,14 +44,14 @@ public class GameService implements IGameService {
     @Override
     public boolean joinGame(int gameID, int userID) throws ServiceException, DaoException {
         Game game = gameDao.getGame(gameID);
-        if (game == null) return false;
+        if (game == null || game.isStarted()) return false;
         return game.addUser(userID);
     }
 
     @Override
     public boolean leaveGame(int gameId, int userID)  throws ServiceException, DaoException {
         Game game = gameDao.getGame(gameId);
-        if (game == null) return false;
+        if (game == null || game.isStarted()) return false;
         return game.removeUser(userID);
     }
 
