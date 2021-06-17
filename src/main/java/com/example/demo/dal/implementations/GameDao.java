@@ -38,7 +38,7 @@ public class GameDao implements IGameDao {
 	private int getUniqueGameId(){
 		//Would never return if all ids are taken :(
 		int id;
-		while (games.containsKey(id = random.nextInt()));
+		while (games.containsKey(id = random.nextInt()) && id != -1);
 		return id;
 	}
 
