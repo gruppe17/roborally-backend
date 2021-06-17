@@ -119,11 +119,9 @@ public class Board {
 	}
 
 	public Player getPlayerById(int playerId) {
-		if (playerId >= 0) {
-			for (Player player : players) {
-				if (player.getPlayerId() == playerId) {
-					return player;
-				}
+		for (Player player : players) {
+			if (player.getPlayerId() == playerId) {
+				return player;
 			}
 		}
 		return null;

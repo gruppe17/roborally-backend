@@ -240,12 +240,8 @@ public class GameController {
 		user.setCurrentGameId(null);
 
 		Board board = boardService.getBoard(gameId);
-		if(board == null ){
-			return new ResponseEntity<>(true, HttpStatus.EXPECTATION_FAILED);
-		}
-
-		Player player = board.getPlayer(userId);
-		if(player == null ){
+		Player player;
+		if(board == null || (player = board.getPlayerById(userId)) == null){
 			return new ResponseEntity<>(true, HttpStatus.EXPECTATION_FAILED);
 		}
 
