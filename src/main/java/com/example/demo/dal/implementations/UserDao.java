@@ -10,6 +10,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Random;
 
+import static com.example.demo.model.Game.INVALID_GAMEID;
+
 @Repository
 public class UserDao implements IUserDao {
 	static final HashMap<Integer, User> users = new HashMap<>();
@@ -24,9 +26,7 @@ public class UserDao implements IUserDao {
 
 	@Override
 	public int newUser() {
-
-
-		User user = new User(getUniqueUserId(), nameGenerator.next(), 0);
+		User user = new User(getUniqueUserId(), nameGenerator.next(), INVALID_GAMEID);
 		users.put(user.getUserId(), user);
 		return user.getUserId();
 	}

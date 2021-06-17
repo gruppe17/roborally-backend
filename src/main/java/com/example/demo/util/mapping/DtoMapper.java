@@ -97,15 +97,19 @@ public class DtoMapper implements IDtoMapper {
 		UserDto userDto = new UserDto();
 		userDto.setUserId(user.getUserId());
 		userDto.setUserName(user.getUserName());
-		int gameId = user.getCurrentGameId();
-		userDto.setCurrentGame(user.getCurrentGameId() == null ? 0 : gameId);
+		try {
+			int gameId = user.getCurrentGameId();
+			userDto.setCurrentGame( gameId);
+		} catch(Exception ex){
+			userDto.setCurrentGame(0);
+		}
+
 		return userDto;
 
 	}
 
 	public Board convertToEntity(BoardDto boardDto) throws MappingException {
-		Board board = new Board(boardDto.getWidth(), boardDto.getHeight(), boardDto.getBoardName());
-		board.setGameId(boardDto.getgameId());
+		Board board = new Board(boardDto.getgameId(), boardDto.getWidth(), boardDto.getHeight(), boardDto.getBoardName());
 
 		for (PlayerDto playerDto: boardDto.getPlayerDtos()
 		     ) {

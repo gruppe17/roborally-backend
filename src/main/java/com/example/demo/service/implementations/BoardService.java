@@ -6,6 +6,7 @@ import com.example.demo.dal.interfaces.ISpaceDao;
 import com.example.demo.exceptions.DaoException;
 import com.example.demo.exceptions.ServiceException;
 import com.example.demo.model.Board;
+import com.example.demo.model.Game;
 import com.example.demo.model.Player;
 import com.example.demo.model.Space;
 import com.example.demo.service.interfaces.IBoardService;
@@ -40,11 +41,10 @@ public class BoardService implements IBoardService {
 	}
 
 	@Override
-	public int saveBoard(Board board) throws ServiceException, DaoException {
-		int savedgameId = boardDao.createBoard(board);
-
-		spaceDao.createSpaces(savedgameId, board.getSpaces());
-		return savedgameId;
+	public int saveBoard(Game game, Board board) throws ServiceException, DaoException {
+		int savedId = boardDao.createBoard(board);
+		spaceDao.createSpaces(savedId, board.getSpaces());
+		return savedId;
 	}
 
 	@Override
@@ -91,6 +91,9 @@ public class BoardService implements IBoardService {
 		Board board = this.getBoard(gameId);
 		int playerId = playerDao.addPlayer(gameId, player);
 		board.addPlayer(player);
+		if(board.getCurrentPlayer() == null){
+			board.setCurrentPlayer(player);
+		}
 		boardDao.updateBoard(board, board.getGameId());
 		return playerId;
 	}

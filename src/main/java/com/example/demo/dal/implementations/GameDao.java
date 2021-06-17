@@ -9,6 +9,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import static com.example.demo.model.Game.INVALID_GAMEID;
+
 /**
  * Primitive implementation of a game dao, using a HashMap.
  */
@@ -38,7 +40,7 @@ public class GameDao implements IGameDao {
 	private int getUniqueGameId(){
 		//Would never return if all ids are taken :(
 		int id;
-		while (games.containsKey(id = random.nextInt()));
+		while (games.containsKey(id = random.nextInt()) && id != INVALID_GAMEID);
 		return id;
 	}
 
