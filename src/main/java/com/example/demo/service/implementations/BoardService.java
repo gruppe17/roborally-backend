@@ -13,6 +13,8 @@ import com.example.demo.service.interfaces.IBoardService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.Random;
+
 @Service
 public class BoardService implements IBoardService {
 	private final IBoardDao boardDao;
@@ -73,6 +75,7 @@ public class BoardService implements IBoardService {
 		boardDao.updateBoard(board, board.getGameId());
 	}
 
+	Random random = new Random();
 	@Override
 	public int addPlayer(int gameId, Player player) throws ServiceException, DaoException {
 		if (player == null) {
@@ -83,6 +86,13 @@ public class BoardService implements IBoardService {
 		board.addPlayer(player);
 		if(board.getCurrentPlayer() == null){
 			board.setCurrentPlayer(player);
+		}
+		while (true){
+			int spaceCoord = random.nextInt(board.width * board.height);
+			Space space = board.getSpace(spaceCoord % board.width, spaceCoord / board.height);
+			if (space.getPlayer() != null) continue;
+			space.setPlayer(player);
+			break;
 		}
 		boardDao.updateBoard(board, board.getGameId());
 		return playerId;

@@ -23,4 +23,5 @@ public interface IGameService {
 
 	boolean editGameName(int gameID, String name) throws ServiceException, DaoException;
 
+	boolean startGame(int gameID);
 }

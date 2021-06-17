@@ -5,12 +5,16 @@ import java.util.List;
 
 public class Game {
 	public final static int INVALID_GAMEID = -1;
+	public final static int MIN_NUM_PLAYERS = 2;
+	public final static int MAX_NUM_PLAYERS = 6;
 
 	private int gameId;
 	private String gameName;
 
-	public void setStarted(boolean started) {
+	public boolean setStarted(boolean started) {
+		if (getUsers().size() < MIN_NUM_PLAYERS) return false;
 		this.started = started;
+		return started;
 	}
 
 	public boolean isStarted() {
@@ -40,6 +44,7 @@ public class Game {
 	}
 
 	public boolean addUser(int userId){
+		if (users.size() >= MAX_NUM_PLAYERS) return false;
 		return users.add(userId);
 	}
 

@@ -113,6 +113,8 @@ public class GameController {
 	 */
 	@PutMapping("/game/get/{gameId}/board/move")
 	public ResponseEntity<Void> moveCurrentPlayer(@PathVariable("gameId") int gameId, @RequestBody SpaceDto spaceDto) throws ServiceException, DaoException {
+		Game game = gameService.getGame(gameId);
+		if (game == null || !game.isStarted()) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		Board board = boardService.getBoard(gameId);
 		Space space = dtoMapper.convertToEntity(spaceDto, board);
 		boardService.moveCurrentPlayer(gameId, space.x, space.y);
@@ -237,7 +239,7 @@ public class GameController {
 	@NotNull
 	private ResponseEntity<Boolean> leaveDeadGame(Integer gameId, Integer userId) throws ServiceException, DaoException {
 		User user;
-		if (userId == null || (user = userService.getUser(userId)) == null) return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
+		if (userId == null || (user = userService.getUser(userId)) == null) throw new ServiceException("Can't leave game as user can't be found", HttpStatus.NOT_FOUND);
 		if (gameService.getGame(gameId) != null) return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
 		user.setCurrentGameId(null);
 		return new ResponseEntity<>(true, HttpStatus.OK);
@@ -255,6 +257,13 @@ public class GameController {
 	public ResponseEntity<Boolean> editGame(@PathVariable("gameId") int gameId, @PathVariable("name") String name) throws ServiceException, DaoException{
 		boolean result = gameService.editGameName(gameId, name);
 		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+
+	@PutMapping("/game/get/{gameId}/start")
+	public ResponseEntity<Boolean> startGame(@PathVariable("gameId") int gameId) throws ServiceException, DaoException{
+		boolean started = gameService.startGame(gameId);
+		if (started) return new ResponseEntity<>(started, HttpStatus.OK);
+		return new ResponseEntity<>(started, HttpStatus.BAD_REQUEST);
 	}
 
 
@@ -322,4 +331,5 @@ public class GameController {
 		boolean result = userService.removeUser(userId);
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
+
 }
