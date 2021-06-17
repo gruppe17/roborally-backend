@@ -15,8 +15,7 @@ public class PlayerDao implements IPlayerDao {
 	static final HashMap<Integer, Player> players = new HashMap<>();
 
 	@Override
-	public int addPlayer(int userId, Player player) {
-		player.setPlayerId(userId);
+	public int addPlayer(Player player) {
 		players.put(player.getPlayerId(), player);
 		return player.getPlayerId();
 	}

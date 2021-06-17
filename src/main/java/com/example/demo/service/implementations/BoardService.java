@@ -79,7 +79,7 @@ public class BoardService implements IBoardService {
 			throw new ServiceException("Player to add to board was null", HttpStatus.BAD_REQUEST);
 		}
 		Board board = this.getBoard(gameId);
-		int playerId = playerDao.addPlayer(gameId, player);
+		int playerId = playerDao.addPlayer(player);
 		board.addPlayer(player);
 		if(board.getCurrentPlayer() == null){
 			board.setCurrentPlayer(player);
