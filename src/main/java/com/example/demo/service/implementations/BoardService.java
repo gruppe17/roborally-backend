@@ -91,6 +91,9 @@ public class BoardService implements IBoardService {
 		Board board = this.getBoard(gameId);
 		int playerId = playerDao.addPlayer(gameId, player);
 		board.addPlayer(player);
+		if(board.getCurrentPlayer() == null){
+			board.setCurrentPlayer(player);
+		}
 		boardDao.updateBoard(board, board.getGameId());
 		return playerId;
 	}
