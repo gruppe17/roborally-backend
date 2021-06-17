@@ -29,9 +29,8 @@ public class BoardService implements IBoardService {
 	public Board getBoard(int gameId) throws ServiceException, DaoException {
 		Board board = boardDao.getBoard(gameId);
 		if (board == null) {
-			throw new ServiceException("No board found with board id " + gameId, HttpStatus.NOT_FOUND);
+			throw new ServiceException("No board found with id " + gameId, HttpStatus.NOT_FOUND);
 		}
-
 		return board;
 	}
 

@@ -43,7 +43,7 @@ public class GameController {
 	public ResponseEntity<GameDto> getGame(@PathVariable("gameId") int gameId) throws ServiceException, MappingException, DaoException {
 		Game game = gameService.getGame(gameId);
 		if(game == null)
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			throw new ServiceException("Couldn't find a game with id: " + gameId, HttpStatus.NOT_FOUND);
 		return new ResponseEntity<>(dtoMapper.convertToDto(game), HttpStatus.OK);
 	}
 
@@ -111,7 +111,7 @@ public class GameController {
 	@PostMapping("/game/get/{gameId}/board/new")
 	public ResponseEntity<Integer> createBoard(@PathVariable("gameId") int gameId) throws ServiceException, DaoException {
 		Game game = gameService.getGame(gameId);
-		boardService.removeBoard((int)gameId);
+		boardService.removeBoard(gameId);
 		Board board = new Board(gameId,8, 8, "Board");
 		board.setGameId(gameId);
 		boardService.saveBoard(game, board);
@@ -195,7 +195,7 @@ public class GameController {
 	@PostMapping("/game/join/{gameId}/{userId}")
 	public ResponseEntity<Boolean> joinGame(@PathVariable("gameId") int gameId, @PathVariable("userId") int userId) throws ServiceException, DaoException {
 		User user = userService.getUser(userId);
-		if(user == null) return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+		if(user == null) throw new ServiceException("A user with id " + userId + "could not be found", HttpStatus.NOT_FOUND);
 		boolean result;
 		if (user.getCurrentGameId() != null && !leaveDeadGame(user.getCurrentGameId(), userId).getBody())  {
 			result = user.getCurrentGameId() == gameId;
