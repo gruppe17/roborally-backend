@@ -113,6 +113,8 @@ public class GameController {
 	 */
 	@PutMapping("/game/get/{gameId}/board/move")
 	public ResponseEntity<Void> moveCurrentPlayer(@PathVariable("gameId") int gameId, @RequestBody SpaceDto spaceDto) throws ServiceException, DaoException {
+		Game game = gameService.getGame(gameId);
+		if (game == null || !game.isStarted()) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		Board board = boardService.getBoard(gameId);
 		Space space = dtoMapper.convertToEntity(spaceDto, board);
 		boardService.moveCurrentPlayer(gameId, space.x, space.y);
