@@ -257,6 +257,11 @@ public class GameController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
+	@PutMapping("/game/get/{gameId}/start")
+	public ResponseEntity<Boolean> startGame(@PathVariable("gameId") int gameId) throws ServiceException, DaoException{
+		return new ResponseEntity<>(gameService.startGame(gameId), HttpStatus.OK);
+	}
+
 
 	/**
 	 * Creates a new user
@@ -322,4 +327,5 @@ public class GameController {
 		boolean result = userService.removeUser(userId);
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
+
 }

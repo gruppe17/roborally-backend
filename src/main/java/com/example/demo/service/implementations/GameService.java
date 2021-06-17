@@ -55,6 +55,13 @@ public class GameService implements IGameService {
         return game.removeUser(userID);
     }
 
+    public boolean startGame(int gameId){
+        Game game = gameDao.getGame(gameId);
+        if (game == null) return false;
+        game.setStarted(true);
+        return game.isStarted();
+    }
+
     @Override
     public boolean editGameName(int gameID, String name) throws ServiceException, DaoException {
         Game game = gameDao.getGame(gameID);
