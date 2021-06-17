@@ -109,8 +109,7 @@ public class DtoMapper implements IDtoMapper {
 	}
 
 	public Board convertToEntity(BoardDto boardDto) throws MappingException {
-		Board board = new Board(boardDto.getWidth(), boardDto.getHeight(), boardDto.getBoardName());
-		board.setGameId(boardDto.getgameId());
+		Board board = new Board(boardDto.getgameId(), boardDto.getWidth(), boardDto.getHeight(), boardDto.getBoardName());
 
 		for (PlayerDto playerDto: boardDto.getPlayerDtos()
 		     ) {
