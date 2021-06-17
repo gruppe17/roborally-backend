@@ -3,6 +3,7 @@ package com.example.demo.dal.implementations;
 import com.example.demo.dal.interfaces.IBoardDao;
 import com.example.demo.model.Board;
 import org.springframework.stereotype.Repository;
+import static com.example.demo.model.Game.INVALID_GAMEID;
 
 import java.util.HashMap;
 

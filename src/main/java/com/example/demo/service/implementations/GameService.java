@@ -58,6 +58,7 @@ public class GameService implements IGameService {
     @Override
     public boolean editGameName(int gameID, String name) throws ServiceException, DaoException {
         Game game = gameDao.getGame(gameID);
+        if (game == null) return false;
         game.setGameName(name);
         gameDao.updateGame(game, gameID);
         return game.getGameName().equals(name);

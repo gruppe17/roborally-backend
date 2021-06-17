@@ -32,6 +32,7 @@ public class GameDao implements IGameDao {
 
 	@Override
 	public int createGame(Game game) {
+		if (game == null) return INVALID_GAMEID;
 		game.setGameId(getUniqueGameId());
 		games.put(game.getGameId(), game);
 		return game.getGameId();
