@@ -14,6 +14,7 @@ public class Game {
 	public boolean setStarted(boolean started) {
 		if (getUsers().size() < MIN_NUM_PLAYERS) return false;
 		this.started = started;
+		return started;
 	}
 
 	public boolean isStarted() {
