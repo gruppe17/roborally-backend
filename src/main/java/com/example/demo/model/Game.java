@@ -50,7 +50,9 @@ public class Game {
 	public int getGameId() {
 		return gameId;
 	}
-	public void setGameId(int gameId) {
+	public boolean setGameId(int gameId) {
+		if (gameId == INVALID_GAMEID) return false;
 		this.gameId = gameId;
+		return true;
 	}
 }
