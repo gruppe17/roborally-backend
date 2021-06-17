@@ -55,7 +55,7 @@ public class Board {
 
 	private int counter = 0;
 
-	public Board(int width, int height, @NotNull String boardName) {
+	public Board(int gameId, int width, int height, @NotNull String boardName) {
 		this.boardName = boardName;
 		this.width = width;
 		this.height = height;
@@ -67,11 +67,10 @@ public class Board {
 			}
 		}
 		this.stepMode = false;
+		this.gameId = gameId;
 	}
 
-	public Board(int width, int height) {
-		this(width, height, "defaultboard");
-	}
+
 
 	public Integer getGameId() {
 		return gameId;

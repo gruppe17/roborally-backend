@@ -94,10 +94,10 @@ public class GameController {
 	@PostMapping("/game/new")
 	public ResponseEntity<Integer> createGame() throws ServiceException, DaoException {
 		int gameId = gameService.createGame();
+		Game game = gameService.getGame(gameId);
 		boardService.removeBoard(gameId);
-		Board board = new Board(8, 8, "Board");
-		board.setGameId(gameId);
-		boardService.saveBoard(board);
+		Board board = new Board(gameId, 8, 8, "Board");
+		boardService.saveBoard(game, board);
 		return new ResponseEntity<>(gameId, HttpStatus.CREATED);
 	}
 
@@ -112,9 +112,9 @@ public class GameController {
 	public ResponseEntity<Integer> createBoard(@PathVariable("gameId") int gameId) throws ServiceException, DaoException {
 		Game game = gameService.getGame(gameId);
 		boardService.removeBoard((int)gameId);
-		Board board = new Board(8, 8, "Board");
+		Board board = new Board(gameId,8, 8, "Board");
 		board.setGameId(gameId);
-		boardService.saveBoard(board);
+		boardService.saveBoard(game, board);
 		return new ResponseEntity<>(game.getGameId(), HttpStatus.CREATED);
 	}
 
