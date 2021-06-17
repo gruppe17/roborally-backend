@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Game {
+	public final static int INVALID_GAMEID = -1;
+
 	private int gameId;
 	private String gameName;
 
