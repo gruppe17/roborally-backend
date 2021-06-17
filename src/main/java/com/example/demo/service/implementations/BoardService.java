@@ -49,9 +49,6 @@ public class BoardService implements IBoardService {
 
 	@Override
 	public Player getCurrentPlayer(int gameId) throws ServiceException, DaoException {
-		if (gameId < 0) {
-			throw new ServiceException("Invalid board id " + gameId, HttpStatus.BAD_REQUEST);
-		}
 		Board board = boardDao.getBoard(gameId);
 		if (board == null) {
 			throw new ServiceException("No board found for board id " + gameId, HttpStatus.NOT_FOUND);
@@ -65,12 +62,6 @@ public class BoardService implements IBoardService {
 
 	@Override
 	public void setCurrentPlayer(int gameId, int playerId) throws ServiceException, DaoException {
-		if (gameId < 0) {
-			throw new ServiceException("Invalid board id " + gameId, HttpStatus.BAD_REQUEST);
-		}
-		if (playerId < 0) {
-			throw new ServiceException("Invalid player id " + playerId, HttpStatus.BAD_REQUEST);
-		}
 		Board board = boardDao.getBoard(gameId);
 		if (board == null) {
 			throw new ServiceException("No board found for board id " + gameId, HttpStatus.NOT_FOUND);
