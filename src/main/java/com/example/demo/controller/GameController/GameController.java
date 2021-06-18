@@ -231,24 +231,17 @@ public class GameController {
 		for (int i = 0; i < 6; i++) {
 			Player p = board.getPlayer(0);
 			takenColors.add(p.getColor());
-
 		}
 
 		for (String color : colors) {
 			boolean taken = false;
 
 			for (String takenColor : takenColors) {
-				if(color == takenColor) taken = true;
+				if(color.equals(takenColor)) taken = true;
 			}
-			if(!taken){
-				chosenColor = color;
-			}
-			else
-			{
-				chosenColor = colors[0];
-			}
+			if (!taken) chosenColor = color;
+			else chosenColor = colors[0];
 		}
-
 
 		Player player = new Player(board, chosenColor, user.getUserName());
 		player.setPlayerId(user.getUserId());
