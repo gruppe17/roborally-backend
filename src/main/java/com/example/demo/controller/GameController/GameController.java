@@ -228,7 +228,7 @@ public class GameController {
 
 		// Check for available colors. If there are no available colors, then choose red
 		for (int i = 0; i < 6; i++) {
-			Player p = board.getPlayer(0);
+			Player p = board.getPlayer(i);
 			takenColors.add(p.getColor());
 		}
 
