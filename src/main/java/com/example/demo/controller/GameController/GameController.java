@@ -226,10 +226,8 @@ public class GameController {
 		// We need java to know that this is a string arraylist
 		ArrayList<String> takenColors = new ArrayList<String>();
 
-		// Check for available colors. If there are no available colors, then choose red
-		for (int i = 0; i < 6; i++) {
-			Player p = board.getPlayer(i);
-			takenColors.add(p.getColor());
+		for (Player player : board.getPlayers()) {
+			takenColors.add(player.getColor());
 		}
 
 		for (String color : colors) {
