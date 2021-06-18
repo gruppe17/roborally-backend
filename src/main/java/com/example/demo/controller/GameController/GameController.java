@@ -140,8 +140,21 @@ public class GameController {
 	 */
 	@PutMapping("/game/get/{gameId}/board/switchplayer")
 	public ResponseEntity<Void> switchPlayer(@PathVariable("gameId") int gameId) throws ServiceException, DaoException {
+		Game game = gameService.getGame(gameId);
+		if (!maySwitchPlayer(gameId)) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		boardService.switchCurrentPlayer(gameId);
 		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	private boolean maySwitchPlayer(int gameId) throws ServiceException, DaoException {
+		final String errorMessageStart = "Cannot switch current player of " + gameId  + "as it ";
+		Game game = gameService.getGame(gameId);
+		if (game == null) {
+			throw new ServiceException(errorMessageStart + "does not exist.", HttpStatus.NOT_FOUND);
+		}
+		if (!game.isStarted()) {
+			throw new ServiceException(errorMessageStart + "has not started yet.", HttpStatus.BAD_REQUEST);
+		}
+		return true;
 	}
 
 
@@ -189,6 +202,7 @@ public class GameController {
 			result = user.getCurrentGameId() == gameId;
 			return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
 		}
+
 
 		result = gameService.joinGame(gameId, userId);
 		if (!result) return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
