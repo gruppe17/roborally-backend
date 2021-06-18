@@ -236,7 +236,10 @@ public class GameController {
 			boolean taken = false;
 
 			for (String takenColor : takenColors) {
-				if(color.equals(takenColor)) taken = true;
+				if(color.equals(takenColor)) {
+					taken = true;
+					break;
+				}
 			}
 			if (!taken) chosenColor = color;
 			else chosenColor = colors[0];
