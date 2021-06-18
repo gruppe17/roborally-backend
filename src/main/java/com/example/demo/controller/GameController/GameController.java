@@ -201,11 +201,10 @@ public class GameController {
 		User user = userService.getUser(userId);
 		if(user == null) throw new ServiceException("A user with id " + userId + "could not be found", HttpStatus.NOT_FOUND);
 		boolean result;
-		if (user.getCurrentGameId() != null && !leaveDeadGame(user.getCurrentGameId(), userId).getBody())  {
+		if (user.getCurrentGameId() != INVALID_GAMEID && !leaveDeadGame(user.getCurrentGameId(), userId).getBody())  {
 			result = user.getCurrentGameId() == gameId;
 			return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
 		}
-
 
 		result = gameService.joinGame(gameId, userId);
 		if (!result) return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
