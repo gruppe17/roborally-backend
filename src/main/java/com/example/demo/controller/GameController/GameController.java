@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -217,7 +218,37 @@ public class GameController {
 	private boolean addUserToBoard(User user, Board board) throws ServiceException, DaoException {
 		if (user == null || board == null ) return false;
 
-		Player player = new Player(board, "red", user.getUserName());
+		String chosenColor = "red";
+
+		String[] colors = {"red", "green", "yellow", "blue"};
+
+		// We need java to know that this is a string arraylist
+		ArrayList<String> takenColors = new ArrayList<String>();
+
+		// Check for available colors. If there are no available colors, then choose red
+		for (int i = 0; i < 6; i++) {
+			Player p = board.getPlayer(0);
+			takenColors.add(p.getColor());
+
+		}
+
+		for (String color : colors) {
+			boolean taken = false;
+
+			for (String takenColor : takenColors) {
+				if(color == takenColor) taken = true;
+			}
+			if(!taken){
+				chosenColor = color;
+			}
+			else
+			{
+				chosenColor = colors[0];
+			}
+		}
+
+
+		Player player = new Player(board, chosenColor, user.getUserName());
 		player.setPlayerId(user.getUserId());
 		boardService.addPlayer(board.getGameId(), player);
 		return true;
