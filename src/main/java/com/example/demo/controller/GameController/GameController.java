@@ -241,7 +241,10 @@ public class GameController {
 					break;
 				}
 			}
-			if (!taken) chosenColor = color;
+			if (!taken) {
+				chosenColor = color;
+				break;
+			}
 			else chosenColor = colors[0];
 		}
 
