@@ -347,6 +347,7 @@ public class GameController {
 	@GetMapping("/user/get/{userId}")
 	public ResponseEntity<UserDto> getUser(@PathVariable("userId") int userId) throws ServiceException, MappingException, DaoException {
 		User user = userService.getUser(userId);
+		if(user == null) throw new ServiceException("Can't find a user with id " + userId, HttpStatus.NOT_FOUND);
 		return new ResponseEntity<>(dtoMapper.convertToDto(user), HttpStatus.OK);
 	}
 
