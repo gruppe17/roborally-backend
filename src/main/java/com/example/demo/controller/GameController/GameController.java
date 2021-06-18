@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
+import static com.example.demo.model.Game.INVALID_GAMEID;
+
 @RestController
 @CrossOrigin
 public class GameController {
@@ -239,7 +241,7 @@ public class GameController {
 		}
 		//Player can't be null as they were removed from the game.
 		User user = userService.getUser(userId);
-		user.setCurrentGameId(null);
+		user.setCurrentGameId(INVALID_GAMEID);
 
 		Board board = boardService.getBoard(gameId);
 		Player player;
@@ -255,7 +257,7 @@ public class GameController {
 		User user;
 		if (userId == null || (user = userService.getUser(userId)) == null) throw new ServiceException("Can't leave game as user can't be found", HttpStatus.NOT_FOUND);
 		if (gameService.getGame(gameId) != null) return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
-		user.setCurrentGameId(null);
+		user.setCurrentGameId(INVALID_GAMEID);
 		return new ResponseEntity<>(true, HttpStatus.OK);
 	}
 
