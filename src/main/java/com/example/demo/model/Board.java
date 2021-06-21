@@ -44,6 +44,7 @@ public class Board {
 	private Integer gameId;
 	private final Space[][] spaces;
 
+
 	private final List<Player> players = new ArrayList<Player>();
 	private Player current;
 
@@ -215,6 +216,9 @@ public class Board {
 		return "Player = " + getCurrentPlayer().getName() + " Counter = " + getCounter();
 	}
 
+	public List<Player> getPlayers() {
+		return players;
+	}
 
 	public int getCounter() {
 		return counter;

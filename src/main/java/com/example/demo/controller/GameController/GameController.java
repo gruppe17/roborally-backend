@@ -14,9 +14,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+
+import static com.example.demo.model.Game.INVALID_GAMEID;
 
 @RestController
 @CrossOrigin
@@ -140,8 +143,21 @@ public class GameController {
 	 */
 	@PutMapping("/game/get/{gameId}/board/switchplayer")
 	public ResponseEntity<Void> switchPlayer(@PathVariable("gameId") int gameId) throws ServiceException, DaoException {
+		Game game = gameService.getGame(gameId);
+		if (!maySwitchPlayer(gameId)) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		boardService.switchCurrentPlayer(gameId);
 		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	private boolean maySwitchPlayer(int gameId) throws ServiceException, DaoException {
+		final String errorMessageStart = "Cannot switch current player of " + gameId  + "as it ";
+		Game game = gameService.getGame(gameId);
+		if (game == null) {
+			throw new ServiceException(errorMessageStart + "does not exist.", HttpStatus.NOT_FOUND);
+		}
+		if (!game.isStarted()) {
+			throw new ServiceException(errorMessageStart + "has not started yet.", HttpStatus.BAD_REQUEST);
+		}
+		return true;
 	}
 
 
@@ -185,7 +201,7 @@ public class GameController {
 		User user = userService.getUser(userId);
 		if(user == null) throw new ServiceException("A user with id " + userId + "could not be found", HttpStatus.NOT_FOUND);
 		boolean result;
-		if (user.getCurrentGameId() != null && !leaveDeadGame(user.getCurrentGameId(), userId).getBody())  {
+		if (user.getCurrentGameId() != INVALID_GAMEID && !leaveDeadGame(user.getCurrentGameId(), userId).getBody())  {
 			result = user.getCurrentGameId() == gameId;
 			return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
 		}
@@ -203,7 +219,34 @@ public class GameController {
 	private boolean addUserToBoard(User user, Board board) throws ServiceException, DaoException {
 		if (user == null || board == null ) return false;
 
-		Player player = new Player(board, "red", user.getUserName());
+		String chosenColor = "red";
+
+		String[] colors = {"red", "green", "yellow", "blue"};
+
+		// We need java to know that this is a string arraylist
+		ArrayList<String> takenColors = new ArrayList<String>();
+
+		for (Player player : board.getPlayers()) {
+			takenColors.add(player.getColor());
+		}
+
+		for (String color : colors) {
+			boolean taken = false;
+
+			for (String takenColor : takenColors) {
+				if(color.equals(takenColor)) {
+					taken = true;
+					break;
+				}
+			}
+			if (!taken) {
+				chosenColor = color;
+				break;
+			}
+			else chosenColor = colors[0];
+		}
+
+		Player player = new Player(board, chosenColor, user.getUserName());
 		player.setPlayerId(user.getUserId());
 		boardService.addPlayer(board.getGameId(), player);
 		return true;
@@ -225,7 +268,7 @@ public class GameController {
 		}
 		//Player can't be null as they were removed from the game.
 		User user = userService.getUser(userId);
-		user.setCurrentGameId(null);
+		user.setCurrentGameId(INVALID_GAMEID);
 
 		Board board = boardService.getBoard(gameId);
 		Player player;
@@ -241,7 +284,7 @@ public class GameController {
 		User user;
 		if (userId == null || (user = userService.getUser(userId)) == null) throw new ServiceException("Can't leave game as user can't be found", HttpStatus.NOT_FOUND);
 		if (gameService.getGame(gameId) != null) return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
-		user.setCurrentGameId(null);
+		user.setCurrentGameId(INVALID_GAMEID);
 		return new ResponseEntity<>(true, HttpStatus.OK);
 	}
 
@@ -304,6 +347,7 @@ public class GameController {
 	@GetMapping("/user/get/{userId}")
 	public ResponseEntity<UserDto> getUser(@PathVariable("userId") int userId) throws ServiceException, MappingException, DaoException {
 		User user = userService.getUser(userId);
+		if(user == null) throw new ServiceException("Can't find a user with id " + userId, HttpStatus.NOT_FOUND);
 		return new ResponseEntity<>(dtoMapper.convertToDto(user), HttpStatus.OK);
 	}
 

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.demo.model.Game.INVALID_GAMEID;
+
 @Service
 public class DtoMapper implements IDtoMapper {
 	public PlayerDto convertToDto(Player player) throws MappingException {
@@ -99,9 +101,9 @@ public class DtoMapper implements IDtoMapper {
 		userDto.setUserName(user.getUserName());
 		try {
 			int gameId = user.getCurrentGameId();
-			userDto.setCurrentGame( gameId);
+			userDto.setCurrentGameId(gameId);
 		} catch(Exception ex){
-			userDto.setCurrentGame(0);
+			userDto.setCurrentGameId(INVALID_GAMEID);
 		}
 
 		return userDto;
@@ -155,6 +157,6 @@ public class DtoMapper implements IDtoMapper {
 
 	@Override
 	public User convertToEntity(UserDto userDto, Game game) throws MappingException {
-		return new User(userDto.getUserId(), userDto.getUserName(), userDto.getCurrentGame());
+		return new User(userDto.getUserId(), userDto.getUserName(), userDto.getCurrentGameId());
 	}
 }
