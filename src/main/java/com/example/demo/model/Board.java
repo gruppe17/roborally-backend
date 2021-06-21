@@ -108,7 +108,11 @@ public class Board {
 	}
 
 	public boolean removePlayer(@NotNull Player player) {
-		return players.remove(player);
+		boolean removedPlayer = players.remove(player);
+		if(!removedPlayer) return false;
+		player.getSpace().setPlayer(null);
+		player.setSpace(null);
+		return true;
 	}
 
 	public Player getPlayer(int i) {
