@@ -132,7 +132,9 @@ public class GameController {
 	 * @return nothing
 	 */
 	@PutMapping("/game/get/{gameId}/board/currentPlayer/{playerId}")
-	public ResponseEntity<Void> setCurrentPlayer(@PathVariable("gameId") int gameId, @PathVariable("playerId") int playerId) throws ServiceException, DaoException {
+	public ResponseEntity<Void> setCurrentPlayer(@PathVariable("gameId") int gameId, @PathVariable("playerId") int playerId) throws ServiceException, DaoException, MappingException {
+		Game game = gameService.getGame(gameId);
+		if (getCurrentPlayer(gameId) != null && game.isStarted()) throw new ServiceException("Can't set current player as there already is a current player and the game has already begun", HttpStatus.METHOD_NOT_ALLOWED);
 		boardService.setCurrentPlayer(gameId, playerId);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
