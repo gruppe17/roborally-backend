@@ -307,8 +307,12 @@ public class GameController {
 	@PutMapping("/game/get/{gameId}/start")
 	public ResponseEntity<Boolean> startGame(@PathVariable("gameId") int gameId) throws ServiceException, DaoException{
 		boolean started = gameService.startGame(gameId);
-		if (started) return new ResponseEntity<>(started, HttpStatus.OK);
-		return new ResponseEntity<>(started, HttpStatus.BAD_REQUEST);
+		if (!started) return new ResponseEntity<>(started, HttpStatus.BAD_REQUEST);
+		if (boardService.getCurrentPlayer(gameId) == null) {
+			Game game = gameService.getGame(gameId);
+			boardService.setCurrentPlayer(gameId, game.getUsers().get(0));
+		}
+		return new ResponseEntity<>(started, HttpStatus.OK);
 	}
 
 
