@@ -186,7 +186,13 @@ public class GameController {
 	 */
 	@DeleteMapping("/game/get/{gameId}/remove")
 	public ResponseEntity<Boolean> removeGame(@PathVariable("gameId") int gameId) throws ServiceException, DaoException {
+		Game game = gameService.getGame(gameId);
 		boolean result = gameService.removeGame(gameId);
+		if (result) {
+			for (Integer user: game.getUsers()) {
+				leaveGame(gameId, user);
+			}
+		}
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
